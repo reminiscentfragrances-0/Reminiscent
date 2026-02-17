@@ -41,6 +41,22 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Less transparent on mobile (e.g. bottom nav) */
+.glass-nav {
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+@media (max-width: 1023px) {
+  .glass-nav {
+    background: rgba(17, 22, 33, 0.3);
+  }
+}
+@media (min-width: 1024px) {
+  .glass-nav {
+    background: rgba(17, 22, 33, 0.4);
+  }
+}
+
 /* ─── Text Glow Utility ─── */
 .text-glow {
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
