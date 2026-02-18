@@ -44,10 +44,10 @@ export default function PhilosophyPage() {
         <div className="max-w-[800px] mx-auto px-6 py-12 md:py-24">
           {/* Page Heading */}
           <div className="flex flex-col gap-6 mb-20 text-center">
-            <h1 className="text-ink text-5xl md:text-7xl font-extralight italic tracking-tight leading-[1.1] font-[family-name:var(--font-serif)]">
+            <h1 className="text-parchment text-5xl md:text-7xl font-extralight italic tracking-tight leading-[1.1] font-[family-name:var(--font-serif)]">
               The Journal
             </h1>
-            <p className="text-ink/70 text-lg font-light max-w-xl mx-auto italic">
+            <p className="text-parchment/70 text-lg font-light max-w-xl mx-auto italic">
               A digital sanctuary for memories, thoughts, and philosophical
               explorations of scent. A space where time dissolves into ether.
             </p>
@@ -63,7 +63,7 @@ export default function PhilosophyPage() {
                   className={`flex flex-col items-center justify-center border-b-2 pb-4 ${
                     tab.active
                       ? "border-primary text-primary"
-                      : "border-transparent text-ink/60 hover:text-primary transition-colors"
+                      : "border-transparent text-parchment/60 hover:text-primary transition-colors"
                   }`}
                 >
                   <span className="text-xs font-medium tracking-[0.3em] uppercase">
@@ -86,13 +86,13 @@ export default function PhilosophyPage() {
                     aria-label={entry.title}
                   />
                   <div className="flex flex-col gap-4">
-                    <span className="text-ink/60 text-xs font-light tracking-[0.4em] uppercase">
+                    <span className="text-parchment/60 text-xs font-light tracking-[0.4em] uppercase">
                       {entry.category}
                     </span>
-                    <h2 className="text-ink text-3xl md:text-4xl font-light italic leading-tight font-[family-name:var(--font-serif)]">
+                    <h2 className="text-parchment text-3xl md:text-4xl font-light italic leading-tight font-[family-name:var(--font-serif)]">
                       {entry.title}
                     </h2>
-                    <p className="text-ink/70 text-lg font-light italic">
+                    <p className="text-parchment/70 text-lg font-light italic">
                       {entry.description}
                     </p>
                     <div className="pt-4 flex items-center gap-4">
@@ -125,7 +125,7 @@ export default function PhilosophyPage() {
                 expand_more
               </span>
             </button>
-            <div className="mt-24 mb-12 text-ink/50 text-[10px] tracking-[0.5em] uppercase">
+            <div className="mt-24 mb-12 text-parchment/50 text-[10px] tracking-[0.5em] uppercase">
               © The Reminiscent Journal — MMXXIV
             </div>
           </div>

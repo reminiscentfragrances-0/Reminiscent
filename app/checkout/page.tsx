@@ -32,11 +32,11 @@ export default function CheckoutPage() {
         <div className="flex flex-wrap gap-2 py-4 mb-8">
           <Link
             href="/"
-            className="text-ink/60 text-sm font-medium leading-normal hover:text-primary transition-colors"
+            className="text-parchment/60 text-sm font-medium leading-normal hover:text-primary transition-colors"
           >
             Sanctuary
           </Link>
-          <span className="text-ink/40 text-sm font-medium leading-normal">
+          <span className="text-parchment/40 text-sm font-medium leading-normal">
             /
           </span>
           <span className="text-primary text-sm font-medium leading-normal">
@@ -48,13 +48,13 @@ export default function CheckoutPage() {
           {/* Left: Checkout Details */}
           <div className="lg:col-span-7 flex flex-col gap-12">
             <section>
-              <h1 className="font-serif text-ink tracking-tight text-4xl md:text-[42px] font-light leading-tight pb-8 italic">
+              <h1 className="font-serif text-parchment tracking-tight text-4xl md:text-[42px] font-light leading-tight pb-8 italic">
                 The Final Ritual
               </h1>
 
               {/* Notice */}
               <div className="bg-primary/10 border border-primary/30 p-6 md:p-8 rounded-lg mb-12">
-                <p className="text-ink text-sm leading-relaxed tracking-wide italic">
+                <p className="text-parchment text-sm leading-relaxed tracking-wide italic">
                   We honor simplicity and presence — all transactions are cash
                   only, keeping your experience intimate and grounded. Our
                   messenger will arrive at your door to exchange your selected
@@ -62,49 +62,49 @@ export default function CheckoutPage() {
                 </p>
               </div>
 
-              <h2 className="text-ink text-lg font-light tracking-widest uppercase border-b border-travertine/30 pb-4 mb-8">
+              <h2 className="text-parchment text-lg font-light tracking-widest uppercase border-b border-travertine/30 pb-4 mb-8">
                 Personal Sanctuary
               </h2>
 
               <form className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
                 <div className="flex flex-col gap-2">
-                  <label className="text-ink/60 text-[10px] uppercase tracking-widest">
+                  <label className="text-parchment/60 text-[10px] uppercase tracking-widest">
                     Full Name
                   </label>
                   <input
                     type="text"
                     placeholder="The Curator"
-                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-ink placeholder:text-ink/30 py-2 transition-all outline-none"
+                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-parchment placeholder:text-parchment/30 py-2 transition-all outline-none"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-ink/60 text-[10px] uppercase tracking-widest">
+                  <label className="text-parchment/60 text-[10px] uppercase tracking-widest">
                     Email Address
                   </label>
                   <input
                     type="email"
                     placeholder="memories@forest.com"
-                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-ink placeholder:text-ink/30 py-2 transition-all outline-none"
+                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-parchment placeholder:text-parchment/30 py-2 transition-all outline-none"
                   />
                 </div>
                 <div className="flex flex-col gap-2 md:col-span-2">
-                  <label className="text-ink/60 text-[10px] uppercase tracking-widest">
+                  <label className="text-parchment/60 text-[10px] uppercase tracking-widest">
                     Delivery Coordinates
                   </label>
                   <input
                     type="text"
                     placeholder="Where the silver birch meets the street…"
-                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-ink placeholder:text-ink/30 py-2 transition-all outline-none"
+                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-parchment placeholder:text-parchment/30 py-2 transition-all outline-none"
                   />
                 </div>
                 <div className="flex flex-col gap-2 md:col-span-2">
-                  <label className="text-ink/60 text-[10px] uppercase tracking-widest">
+                  <label className="text-parchment/60 text-[10px] uppercase tracking-widest">
                     Intimate Note (Optional)
                   </label>
                   <textarea
                     rows={3}
                     placeholder="A memory you wish to evoke…"
-                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-ink placeholder:text-ink/30 py-2 resize-none transition-all outline-none"
+                    className="bg-transparent border-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-parchment placeholder:text-parchment/30 py-2 resize-none transition-all outline-none"
                   />
                 </div>
               </form>
@@ -123,7 +123,7 @@ export default function CheckoutPage() {
           {/* Right: Order Summary */}
           <div className="lg:col-span-5">
             <div className="sticky top-28 border border-travertine/30 p-8 md:p-10 rounded-lg bg-evergreen/5">
-              <h2 className="text-ink text-sm font-light tracking-widest uppercase mb-10">
+              <h2 className="text-parchment text-sm font-light tracking-widest uppercase mb-10">
                 Your Selected Essences
               </h2>
 
@@ -140,10 +140,10 @@ export default function CheckoutPage() {
                       aria-label={item.name}
                     />
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-ink text-base font-light font-serif">
+                      <h3 className="text-parchment text-base font-light font-serif">
                         {item.name}
                       </h3>
-                      <p className="text-ink/60 text-xs tracking-wider">
+                      <p className="text-parchment/60 text-xs tracking-wider">
                         {item.detail}
                       </p>
                     </div>
@@ -155,22 +155,22 @@ export default function CheckoutPage() {
               </div>
 
               <div className="mt-10 flex flex-col gap-4">
-                <div className="flex justify-between text-xs tracking-widest uppercase text-ink/60">
+                <div className="flex justify-between text-xs tracking-widest uppercase text-parchment/60">
                   <span>Subtotal</span>
                   <span>${subtotal}</span>
                 </div>
-                <div className="flex justify-between text-xs tracking-widest uppercase text-ink/60">
+                <div className="flex justify-between text-xs tracking-widest uppercase text-parchment/60">
                   <span>Messenger Fee</span>
                   <span>$0 (Our Compliments)</span>
                 </div>
                 <div className="h-px bg-primary/30 my-2" />
-                <div className="flex justify-between text-lg text-ink">
+                <div className="flex justify-between text-lg text-parchment">
                   <span className="font-serif">Total Exchange</span>
                   <span className="text-primary font-serif font-bold">
                     ${subtotal}
                   </span>
                 </div>
-                <p className="text-[10px] text-ink/50 text-center mt-6 italic">
+                <p className="text-[10px] text-parchment/50 text-center mt-6 italic">
                   * To be provided in physical currency upon arrival.
                 </p>
               </div>

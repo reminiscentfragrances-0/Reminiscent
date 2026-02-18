@@ -63,12 +63,12 @@ export default function CollectionPage() {
         <div className="flex flex-wrap gap-2 py-4">
           <Link
             href="/"
-            className="text-ink/60 text-xs uppercase tracking-widest font-medium hover:text-primary transition-colors"
+            className="text-parchment/60 text-xs uppercase tracking-widest font-medium hover:text-primary transition-colors"
           >
             Archives
           </Link>
-          <span className="text-ink/60 text-xs">/</span>
-          <span className="text-ink text-xs uppercase tracking-widest font-bold">
+          <span className="text-parchment/60 text-xs">/</span>
+          <span className="text-parchment text-xs uppercase tracking-widest font-bold">
             Fragrances
           </span>
         </div>
@@ -76,10 +76,10 @@ export default function CollectionPage() {
         {/* Page Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="max-w-2xl">
-            <h1 className="font-serif text-ink text-4xl md:text-5xl lg:text-6xl italic leading-tight tracking-tight">
+            <h1 className="font-serif text-parchment text-4xl md:text-5xl lg:text-6xl italic leading-tight tracking-tight">
               The Fragrance Gallery
             </h1>
-            <p className="text-ink/70 text-base md:text-lg font-light leading-relaxed mt-4 max-w-lg">
+            <p className="text-parchment/70 text-base md:text-lg font-light leading-relaxed mt-4 max-w-lg">
               A curated sanctuary of sensory memories preserved in glass. Each
               scent is a vessel for a moment once lived, now immortalized.
             </p>
@@ -95,8 +95,8 @@ export default function CollectionPage() {
                 href={cat.active ? "#" : "#"}
                 className={`flex flex-col items-center border-b-2 pb-4 pt-4 whitespace-nowrap transition-colors ${
                   cat.active
-                    ? "border-primary text-ink"
-                    : "border-transparent text-ink/60 hover:text-ink"
+                    ? "border-primary text-parchment"
+                    : "border-transparent text-parchment/60 hover:text-parchment"
                 }`}
               >
                 <span className="text-xs font-bold uppercase tracking-widest">
@@ -105,7 +105,7 @@ export default function CollectionPage() {
               </Link>
             ))}
           </div>
-          <div className="hidden md:flex items-center gap-2 text-ink/60 text-xs font-bold uppercase tracking-widest pb-4 md:pb-0">
+          <div className="hidden md:flex items-center gap-2 text-parchment/60 text-xs font-bold uppercase tracking-widest pb-4 md:pb-0">
             <span>Filter By Era</span>
             <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
               expand_more
@@ -133,15 +133,15 @@ export default function CollectionPage() {
                   className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
               </div>
-              <h3 className="font-serif text-ink text-2xl mb-2 group-hover:text-primary transition-colors">
+              <h3 className="font-serif text-parchment text-2xl mb-2 group-hover:text-primary transition-colors">
                 {item.name}
               </h3>
-              <p className="text-ink/70 text-sm italic mb-6 font-light">
+              <p className="text-parchment/70 text-sm italic mb-6 font-light">
                 {item.description}
               </p>
               <Link
                 href="/checkout"
-                className="block w-full py-4 text-center border border-travertine/50 text-ink text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:border-primary hover:text-obsidian transition-colors rounded-lg"
+                className="block w-full py-4 text-center border border-travertine/50 text-parchment text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:border-primary hover:text-obsidian transition-colors rounded-lg"
               >
                 Discover
               </Link>
@@ -154,7 +154,7 @@ export default function CollectionPage() {
           <div className="w-px h-24 bg-travertine/40 mb-8" />
           <button
             type="button"
-            className="text-ink text-xs font-bold uppercase tracking-[0.4em] hover:text-primary transition-colors"
+            className="text-parchment text-xs font-bold uppercase tracking-[0.4em] hover:text-primary transition-colors"
           >
             View More Archives
           </button>

@@ -1,21 +1,30 @@
 @import "tailwindcss";
 
-/* ─── Design Tokens (Tailwind v4 @theme) — Obsidian Forest Palette ─── */
+/* ─── Design Tokens (Tailwind v4 @theme) — Deep Forest Palette ─── */
 @theme inline {
-  /* Primary Brand Palette */
-  --color-obsidian: #051F1C;        /* Obsidian Forest — hero, nav, depth */
-  --color-evergreen: #0B2B23;      /* Evergreen Shadow — cards, layered */
-  --color-parchment: #F2EEE9;      /* Heirloom Parchment — 60% main bg */
-  --color-travertine: #D9C5B2;     /* Muted Travertine — 10% accents */
-  --color-ink: #262626;            /* Charcoal Ink — body text */
-  --color-gold: #C0A46A;           /* Antique Gold — decorative */
+  /* Primary Brand Palette (Forest Monochrome) */
+  --color-obsidian: #051F20;       /* Obsidian Pine — hero, nav, depth */
+  --color-spruce: #0B2B26;        /* Spruce Shadow — cards, layered */
+  --color-juniper: #163832;       /* Deep Juniper — tertiary, footer */
+  --color-hunter: #235347;        /* Hunter Green — primary action */
+  --color-sage: #8EB69B;          /* Muted Sage — secondary text, borders */
+  --color-mint: #D9EDDF;          /* Frosted Mint — main text, light surfaces */
+  --color-silver-fern: #BCCBBD;   /* Silver Fern — hairline borders, grain */
 
-  /* Semantic Aliases (60–30–10) */
-  --color-background: #F2EEE9;      /* Heirloom Parchment — calm foundation */
-  --color-background-dark: #051F1C; /* Obsidian Forest — structure */
-  --color-background-darker: #0B2B23; /* Evergreen Shadow — layered */
-  --color-primary: #D9C5B2;        /* Muted Travertine — buttons, hover */
-  --color-accent: #C0A46A;         /* Antique Gold — rules, underlines */
+  /* Legacy aliases (for existing text-parchment, border-travertine, etc.) */
+  --color-evergreen: #0B2B26;     /* = Spruce Shadow */
+  --color-parchment: #D9EDDF;     /* = Frosted Mint — text on dark */
+  --color-travertine: #8EB69B;    /* = Muted Sage — borders, accents */
+  --color-ink: #051F20;           /* = Obsidian Pine — text on light */
+  --color-gold: #BCCBBD;          /* = Silver Fern — decorative */
+
+  /* Semantic (60–30–10: dark foundation, mint contrast, hunter+sage accents) */
+  --color-background: #051F20;    /* Obsidian Pine — main foundation */
+  --color-background-dark: #0B2B26;   /* Spruce Shadow — layered sections */
+  --color-background-darker: #163832;  /* Deep Juniper — footer, tertiary */
+  --color-primary: #235347;      /* Hunter Green — buttons, active states */
+  --color-accent: #8EB69B;       /* Muted Sage — rules, secondary CTAs */
+  --color-foreground: #D9EDDF;   /* Frosted Mint — default text on dark */
 
   /* Typography */
   --font-display: "Manrope", sans-serif;
@@ -35,39 +44,39 @@ html {
 
 body {
   background: var(--color-background);
-  color: var(--color-ink);
+  color: var(--color-foreground);
   font-family: var(--font-display);
 }
 
 ::selection {
-  background: rgba(217, 197, 178, 0.35);
+  background: rgba(142, 182, 155, 0.35);
 }
 
-/* ─── Glassmorphism Utility (Obsidian / Evergreen tint) ─── */
+/* ─── Glassmorphism Utility (Obsidian Pine / Spruce tint) ─── */
 .glass {
-  background: rgba(5, 31, 28, 0.5);
+  background: rgba(5, 31, 32, 0.5);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(242, 238, 233, 0.12);
+  border: 1px solid rgba(217, 237, 223, 0.12);
 }
 
 .glass-nav {
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(242, 238, 233, 0.12);
+  border: 1px solid rgba(217, 237, 223, 0.12);
 }
 @media (max-width: 1023px) {
   .glass-nav {
-    background: rgba(5, 31, 28, 0.85);
+    background: rgba(5, 31, 32, 0.85);
   }
 }
 @media (min-width: 1024px) {
   .glass-nav {
-    background: rgba(5, 31, 28, 0.75);
+    background: rgba(5, 31, 32, 0.75);
   }
 }
 
 /* ─── Text Glow Utility (on dark sections) ─── */
 .text-glow {
-  text-shadow: 0 0 20px rgba(242, 238, 233, 0.15);
+  text-shadow: 0 0 20px rgba(217, 237, 223, 0.15);
 }
 
 /* ─── Custom Scrollbar Hiding ─── */
