@@ -19,8 +19,8 @@ export default function Hero({
     <section className="relative min-h-screen w-full flex flex-col justify-end overflow-hidden">
       {/* Cinematic Background Image */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-linear-to-t from-background-dark via-background-dark/20 to-transparent z-10" />
-        <div className="absolute inset-0 bg-linear-to-r from-background-dark/60 via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-t from-obsidian via-obsidian/20 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-r from-obsidian/60 via-transparent to-transparent z-10" />
         <div
           className="w-full h-full bg-cover bg-center"
           style={{ backgroundImage: `url("${backgroundImage}")` }}
@@ -30,11 +30,11 @@ export default function Hero({
       {/* Content */}
       <div className="relative z-20 px-6 lg:px-40 pb-20 lg:pb-32 max-w-[1400px]">
         <div className="flex flex-col gap-6 max-w-3xl">
-          <h1 className="font-[family-name:var(--font-serif)] text-5xl md:text-7xl lg:text-8xl text-white leading-[1.1] text-glow">
+          <h1 className="font-[family-name:var(--font-serif)] text-5xl md:text-7xl lg:text-8xl text-parchment leading-[1.1] text-glow">
             {title} <br />
             <span className="italic font-light opacity-80">{titleAccent}</span>
           </h1>
-          <p className="text-white/70 text-lg md:text-xl font-light max-w-xl leading-relaxed">
+          <p className="text-parchment/80 text-lg md:text-xl font-light max-w-xl leading-relaxed">
             {description}
           </p>
           <div className="flex items-center gap-6 mt-4">
@@ -46,7 +46,7 @@ export default function Hero({
               href="#"
             >
               {secondaryCtaLabel}
-              <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">
+              <span className="material-symbols-outlined text-travertine group-hover:translate-x-1 transition-transform">
                 play_circle
               </span>
             </a> */}

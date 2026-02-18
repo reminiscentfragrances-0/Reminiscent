@@ -46,10 +46,10 @@ export default function Journal({
     <section className="max-w-[1440px] mx-auto px-6 lg:px-20 py-32 bg-background-dark">
       {/* Section Header */}
       <div className="text-center mb-20 flex flex-col items-center gap-4">
-        <span className="text-xs uppercase tracking-[0.5em] text-white/60">
+        <span className="text-xs uppercase tracking-[0.5em] text-parchment/70">
           {label}
         </span>
-        <h3 className="text-white text-4xl font-light tracking-tight italic font-[family-name:var(--font-serif)]">
+        <h3 className="text-parchment text-4xl font-light tracking-tight italic font-[family-name:var(--font-serif)]">
           {title}
         </h3>
         <div className="w-24 h-px bg-primary mt-4" />
@@ -74,10 +74,10 @@ export default function Journal({
               <span className="text-[10px] uppercase tracking-widest text-primary font-bold">
                 {post.category}
               </span>
-              <h4 className="text-white text-2xl font-light group-hover:text-primary transition-colors">
+              <h4 className="text-parchment text-2xl font-light group-hover:text-primary transition-colors">
                 {post.title}
               </h4>
-              <p className="text-white/60 text-base leading-relaxed">
+              <p className="text-parchment/70 text-base leading-relaxed">
                 {post.description}
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function Journal({
       <div className="text-center mt-20">
         <Link
           href="/philosophy"
-          className="inline-flex items-center gap-3 text-white/60 hover:text-primary transition-colors group"
+          className="inline-flex items-center gap-3 text-parchment/70 hover:text-primary transition-colors group"
         >
           <span className="text-xs uppercase tracking-[0.4em] font-light">
             Explore the Journal

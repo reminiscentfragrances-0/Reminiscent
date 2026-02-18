@@ -62,10 +62,10 @@ export default function ScentProfile({
           {/* Floating Info Card */}
           {floatingCard && (
             <div className="absolute -bottom-10 -right-6 glass p-8 rounded-xl max-w-xs hidden md:block">
-              <h4 className="font-[family-name:var(--font-serif)] text-xl mb-3">
+              <h4 className="font-[family-name:var(--font-serif)] text-xl text-parchment mb-3">
                 {floatingCard.title}
               </h4>
-              <p className="text-white/60 text-sm leading-relaxed">
+              <p className="text-parchment/70 text-sm leading-relaxed">
                 {floatingCard.description}
               </p>
             </div>
@@ -77,22 +77,22 @@ export default function ScentProfile({
           <span className="text-primary font-bold tracking-widest text-xs uppercase mb-4 block">
             {label}
           </span>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl lg:text-5xl text-white mb-8 leading-tight">
+          <h2 className="font-[family-name:var(--font-serif)] text-4xl lg:text-5xl text-parchment mb-8 leading-tight">
             {title}
           </h2>
           <div className="space-y-8">
             {notes.map((note) => (
               <div key={note.step} className="flex gap-6">
-                <div className="h-10 w-10 shrink-0 border border-white/10 rounded-full flex items-center justify-center">
-                  <span className="material-symbols-outlined text-white/40 text-sm">
+                <div className="h-10 w-10 shrink-0 border border-travertine/30 rounded-full flex items-center justify-center">
+                  <span className="material-symbols-outlined text-parchment/50 text-sm">
                     filter_{note.step}
                   </span>
                 </div>
                 <div>
-                  <h5 className="text-white font-bold mb-2 uppercase tracking-wide text-sm">
+                  <h5 className="text-parchment font-bold mb-2 uppercase tracking-wide text-sm">
                     {note.title}
                   </h5>
-                  <p className="text-white/50 text-sm">{note.description}</p>
+                  <p className="text-parchment/60 text-sm">{note.description}</p>
                 </div>
               </div>
             ))}

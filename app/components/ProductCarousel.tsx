@@ -62,24 +62,24 @@ export default function ProductCarousel({
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div className="px-4">
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl lg:text-5xl text-white mb-2">
+          <h2 className="font-[family-name:var(--font-serif)] text-4xl lg:text-5xl text-parchment mb-2">
             {title}
           </h2>
-          <p className="text-white/40 uppercase tracking-[0.3em] text-[10px]">
+          <p className="text-parchment/60 uppercase tracking-[0.3em] text-[10px]">
             {subtitle}
           </p>
         </div>
         <div className="flex gap-4 px-4">
           <button
             onClick={() => scroll("left")}
-            className="h-12 w-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors"
+            className="h-12 w-12 rounded-full border border-travertine/30 flex items-center justify-center text-parchment hover:bg-parchment/5 transition-colors"
             aria-label="Scroll left"
           >
             <span className="material-symbols-outlined">west</span>
           </button>
           <button
             onClick={() => scroll("right")}
-            className="h-12 w-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors"
+            className="h-12 w-12 rounded-full border border-travertine/30 flex items-center justify-center text-parchment hover:bg-parchment/5 transition-colors"
             aria-label="Scroll right"
           >
             <span className="material-symbols-outlined">east</span>
