@@ -35,6 +35,8 @@ const defaultPosts: JournalPost[] = [
   },
 ];
 
+import Link from "next/link";
+
 export default function Journal({
   label = "The Journal",
   title = "Notes from the Laboratory",
@@ -81,6 +83,21 @@ export default function Journal({
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Link to full Philosophy / Journal page */}
+      <div className="text-center mt-20">
+        <Link
+          href="/philosophy"
+          className="inline-flex items-center gap-3 text-white/60 hover:text-primary transition-colors group"
+        >
+          <span className="text-xs uppercase tracking-[0.4em] font-light">
+            Explore the Journal
+          </span>
+          <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
+            arrow_forward
+          </span>
+        </Link>
       </div>
     </section>
   );

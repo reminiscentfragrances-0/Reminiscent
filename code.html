@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#d8c4b0",
+                "background-light": "#f2eee9",
+                "background-dark": "#1c1916",
+              },
+              fontFamily: {
+                "display": ["Newsreader", "serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Newsreader', serif;
+            line-height: 2.0;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#171412] dark:text-[#fbfaf9] transition-colors duration-300">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<div class="flex flex-1 justify-center border-b border-[#d8c4b0]/30">
+<div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap px-10 py-6">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-4 text-[#171412] dark:text-primary">
+<div class="size-6">
+<span class="material-symbols-outlined text-3xl">storm</span>
+</div>
+<h2 class="text-[#171412] dark:text-primary text-xl font-light tracking-widest uppercase">The Reminiscent Journal</h2>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-[#171412] dark:text-[#fbfaf9] text-sm font-light tracking-widest uppercase hover:text-primary transition-colors" href="#">Essences</a>
+<a class="text-primary dark:text-primary text-sm font-medium tracking-widest uppercase" href="#">The Journal</a>
+<a class="text-[#171412] dark:text-[#fbfaf9] text-sm font-light tracking-widest uppercase hover:text-primary transition-colors" href="#">Philosophies</a>
+<a class="text-[#171412] dark:text-[#fbfaf9] text-sm font-light tracking-widest uppercase hover:text-primary transition-colors" href="#">Our Atelier</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="flex items-center gap-2 text-[#837363] cursor-pointer">
+<span class="material-symbols-outlined">search</span>
+<span class="text-xs tracking-[0.2em] uppercase">Search</span>
+</div>
+<button class="flex min-w-[100px] items-center justify-center rounded-full h-10 px-6 bg-primary/10 border border-primary/40 text-[#171412] dark:text-primary text-xs font-light tracking-widest uppercase hover:bg-primary hover:text-white transition-all">
+                                Profile
+                            </button>
+</div>
+</header>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex flex-1 justify-center py-12 md:py-24">
+<div class="layout-content-container flex flex-col max-w-[800px] flex-1 px-6">
+<!-- Page Heading -->
+<div class="flex flex-col gap-6 mb-20 text-center">
+<h1 class="text-[#171412] dark:text-[#fbfaf9] text-5xl md:text-7xl font-extralight italic tracking-tight leading-[1.1]">The Journal</h1>
+<p class="text-[#837363] text-lg font-light max-w-xl mx-auto italic">
+                            A digital sanctuary for memories, thoughts, and philosophical explorations of scent. A space where time dissolves into ether.
+                        </p>
+</div>
+<!-- Filter Tabs -->
+<div class="mb-16">
+<div class="flex border-b border-[#d8c4b0]/30 justify-center gap-12">
+<a class="flex flex-col items-center justify-center border-b border-primary text-[#171412] dark:text-primary pb-4" href="#">
+<p class="text-xs font-medium tracking-[0.3em] uppercase">All Entries</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b border-transparent text-[#837363] pb-4 hover:text-primary transition-colors" href="#">
+<p class="text-xs font-medium tracking-[0.3em] uppercase">Olfactory Poetry</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b border-transparent text-[#837363] pb-4 hover:text-primary transition-colors" href="#">
+<p class="text-xs font-medium tracking-[0.3em] uppercase">Fragrant Memories</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b border-transparent text-[#837363] pb-4 hover:text-primary transition-colors" href="#">
+<p class="text-xs font-medium tracking-[0.3em] uppercase">Philosophical Musings</p>
+</a>
+</div>
+</div>
+<!-- Journal Feed -->
+<div class="flex flex-col gap-32">
+<!-- Entry 1 -->
+<article class="group cursor-pointer">
+<div class="flex flex-col gap-8">
+<div class="w-full bg-center bg-no-repeat aspect-[21/9] bg-cover rounded-sm grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" data-alt="Blurred morning sunlight through a sheer linen curtain" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCbyLWiDYyYF5gVzjawBmNVsumPFWBkaM1T7QNZFWYH9yfx5bsN70EulMtU7nXJ33FQIlXcbbdAbvm5MI8Mv8CX3s3cp8-s0BG9wIJN9b6I0qcU9DDaJ2YANpCsvoD3DUgR0OPhbgtTDGL_BfDtEi3W35JZV76I6aRBk0tX4OvLdAG_4BEW9-Ut0vaoq81DqSmsrc4HOSjC23m6ldajfyrusuCY-FPXKxILYhwdfV8y0mPeqPrwMgpZsckqsQOu88AMHaYvqsCouiqn");'>
+</div>
+<div class="flex flex-col gap-4">
+<span class="text-[#837363] text-xs font-light tracking-[0.4em] uppercase">October 14, 2023 — Olfactory Poetry</span>
+<h2 class="text-[#171412] dark:text-[#fbfaf9] text-3xl md:text-4xl font-light italic leading-tight">The Ghost of a Rose</h2>
+<p class="text-[#837363] dark:text-[#a39383] text-lg font-light italic">
+                                        In the quiet corners of a forgotten garden, the scent of crushed petals evokes a childhood long passed, where time stood still under the weight of summer dew. It is not the rose itself we remember, but the hollow space it left in the air after the harvest.
+                                    </p>
+<div class="pt-4 flex items-center gap-4">
+<div class="h-[1px] w-12 bg-primary"></div>
+<button class="text-[#171412] dark:text-primary text-xs font-medium tracking-[0.2em] uppercase hover:tracking-[0.3em] transition-all">Continue Reading</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Delicate Divider -->
+<div class="flex justify-center">
+<div class="w-24 h-[1px] bg-[#d9c5b2]"></div>
+</div>
+<!-- Entry 2 -->
+<article class="group cursor-pointer">
+<div class="flex flex-col gap-8">
+<div class="w-full bg-center bg-no-repeat aspect-[21/9] bg-cover rounded-sm grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" data-alt="Vintage glass perfume bottles on an antique wooden desk" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCpobVXBb5hdHMnNNiyxqEj1NKh6gkedeu0ngvW6USSQum4pq6_d6_r_7mKM5hdcqoNazdKqHm6EeVeQSEz37RLS7fFm861K6TFUrUhk47WadOsmOabLHRdPfdyPS9z23dRmnz8sUR26bOf9-qs50wakWu72I9UA1xyMtCmVzbRLQqx4K1jp6sQmrG1TCW2Xj2EFwGbU-lGAXFsR5rIsL2Py_-4wmDMSjJGFjuXOoiBnujH3pJVxcZLPnN2g-Vsmdii4jI4wKLGlClH");'>
+</div>
+<div class="flex flex-col gap-4">
+<span class="text-[#837363] text-xs font-light tracking-[0.4em] uppercase">September 28, 2023 — Philosophical Musings</span>
+<h2 class="text-[#171412] dark:text-[#fbfaf9] text-3xl md:text-4xl font-light italic leading-tight">Scent as a Vessel for Time</h2>
+<p class="text-[#837363] dark:text-[#a39383] text-lg font-light italic">
+                                        How does a single molecule carry the weight of a decade? Exploring the architecture of memory through the lens of niche perfumery. We are all archives of invisible maps, guided by the phantom limbs of aromas we once knew.
+                                    </p>
+<div class="pt-4 flex items-center gap-4">
+<div class="h-[1px] w-12 bg-primary"></div>
+<button class="text-[#171412] dark:text-primary text-xs font-medium tracking-[0.2em] uppercase hover:tracking-[0.3em] transition-all">Continue Reading</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Delicate Divider -->
+<div class="flex justify-center">
+<div class="w-24 h-[1px] bg-[#d9c5b2]"></div>
+</div>
+<!-- Entry 3 -->
+<article class="group cursor-pointer">
+<div class="flex flex-col gap-8">
+<div class="w-full bg-center bg-no-repeat aspect-[21/9] bg-cover rounded-sm grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" data-alt="Open leather-bound journal with a fountain pen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnY4uNVP69syLBeXGINeKsopEWTBGFlnJOrrIKM91zUmiI5As99PT91u0WNwdxVmesGWlBvmfb-tHcX2YLmbSAYtBJYRYcfW7i167aPd9_4WkAptVEP8ykP0oYHs315sWYC6JhWExb195HCxAUDkN4lPw3_et2yUV-TDWzJKPusvolgh4BWtDzDV1SBqOdtEFhDowTkGopsjBrUsM6pZbqUGnkAaWDkH1B0ZvM4J4-oNXW_MiOon4pciHb0QvI8JWBgJ0sjCnWAl-J");'>
+</div>
+<div class="flex flex-col gap-4">
+<span class="text-[#837363] text-xs font-light tracking-[0.4em] uppercase">September 12, 2023 — Fragrant Memories</span>
+<h2 class="text-[#171412] dark:text-[#fbfaf9] text-3xl md:text-4xl font-light italic leading-tight">The Anatomy of Melancholy</h2>
+<p class="text-[#837363] dark:text-[#a39383] text-lg font-light italic">
+                                        Rain-slicked pavement and the iron-rich scent of impending storms. Why does the smell of earth before rain feel like a homecoming? In the heart of the storm, we find the notes that compose our most silent griefs.
+                                    </p>
+<div class="pt-4 flex items-center gap-4">
+<div class="h-[1px] w-12 bg-primary"></div>
+<button class="text-[#171412] dark:text-primary text-xs font-medium tracking-[0.2em] uppercase hover:tracking-[0.3em] transition-all">Continue Reading</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Footer / Pagination -->
+<div class="mt-32 border-t border-[#d8c4b0]/30 pt-16 text-center">
+<button class="group flex items-center gap-4 mx-auto text-[#171412] dark:text-primary">
+<span class="text-xs tracking-[0.4em] uppercase font-light">Load Earlier Chapters</span>
+<span class="material-symbols-outlined group-hover:translate-y-1 transition-transform">expand_more</span>
+</button>
+<div class="mt-24 mb-12 text-[#837363] text-[10px] tracking-[0.5em] uppercase">
+                            © The Reminiscent Journal — MMXXIV
+                        </div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

@@ -1,3 +1,7 @@
+"use client";
+
+import { useCart } from "../context/CartContext";
+
 export interface NavItem {
   icon: string;
   label: string;
@@ -12,14 +16,17 @@ interface SideNavProps {
 
 const defaultNavItems: NavItem[] = [
   { icon: "history", label: "Archive", href: "#" },
-  { icon: "opacity", label: "Essences", href: "#" },
-  { icon: "menu_book", label: "Journals", href: "#" },
+  { icon: "opacity", label: "Essences", href: "/collection" },
+  { icon: "menu_book", label: "Journals", href: "/journal" },
 ];
 
 export default function SideNav({
   items = defaultNavItems,
-  cartCount = 2,
+  cartCount,
 }: SideNavProps) {
+  const { openCart, itemCount } = useCart();
+  const count = cartCount ?? itemCount;
+
   return (
     <nav className="fixed bottom-6 left-8 right-8 z-50 lg:bottom-auto lg:left-6 lg:right-auto lg:top-1/2 lg:-translate-y-1/2">
       <div className="glass-nav flex flex-row items-center justify-around gap-2 py-3 px-4 rounded-full shadow-lg lg:flex-col lg:items-center lg:gap-8 lg:py-10 lg:px-4 lg:pb-10 max-w-[280px] mx-auto lg:max-w-none lg:mx-0">
@@ -31,9 +38,8 @@ export default function SideNav({
               href={item.href}
             >
               <span
-                className={`material-symbols-outlined ${
-                  item.isActive ? "text-white" : "text-white/50"
-                } group-hover:text-primary transition-colors cursor-pointer`}
+                className={`material-symbols-outlined ${item.isActive ? "text-white" : "text-white/50"
+                  } group-hover:text-primary transition-colors cursor-pointer`}
                 style={{ fontSize: 24 }}
               >
                 {item.icon}
@@ -48,9 +54,11 @@ export default function SideNav({
           <div className="w-px h-8 bg-white/10 lg:w-8 lg:h-px" />
 
           {/* Cart */}
-          <a
+          <button
+            type="button"
+            onClick={openCart}
             className="group relative flex items-center justify-center"
-            href="#"
+            aria-label={`Open cart (${count} items)`}
           >
             <span
               className="material-symbols-outlined text-white group-hover:text-primary transition-colors cursor-pointer"
@@ -59,9 +67,9 @@ export default function SideNav({
               shopping_bag
             </span>
             <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-background-dark px-3 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap lg:left-14 lg:bottom-auto lg:mb-0 lg:translate-x-0">
-              Cart ({cartCount})
+              Cart ({count})
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </nav>
