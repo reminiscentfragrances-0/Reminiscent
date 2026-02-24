@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import ProductCard, { Product } from "./ProductCard";
+import { useCart } from "../context/CartContext";
 
 interface ProductCarouselProps {
   title?: string;
@@ -10,43 +11,30 @@ interface ProductCarouselProps {
   onAddToCart?: (product: Product) => void;
 }
 
-const defaultProducts: Product[] = [
-  {
-    id: "linger",
-    name: "Linger",
-    description: "Sandalwood, Dried Petal & Aged Paper",
-    price: 180.0,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDpGTdYGeEISkxEh3_CBqjrOk8Cwzml6NWbfcwR8j4EM6_R4l6gsMXC13xAtTjrUOJk_2nW_MFCX3OBQjChk8qfqWtVVNdLkIZSAc7lQE46LDSLb58VNAsdH09jwvxts3xebHllMVd3VfLBxfJGrJgllE608sMPKsJI4y1tUMdChgj_7oNzsRn42ySTeZh2D3pLWV-z8f23mUJJOZHpeEs7remC6qymBb8r5rPF_Werypns9aItLKs2HLy-heEnawOvnscnek8B",
-    badge: "Batch 001",
-  },
-  {
-    id: "trace",
-    name: "Trace",
-    description: "Cold Stone, Bergamot & Sea Salt",
-    price: 210.0,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDYsKv1-qhQngP_xyRgTgqCMszMkhghKUzePDg6s6Lz13coeH4qcPIksAlgGO_b7r0XlknfP4IXxgmCnj6Advhw_djUoNfxoclyk_aDAQSBy40CZv7-OKNTRKh3xwZSxs6-fkHKmZ6F8L8l-aRpYLGehXUeSoP28tl2b66aaWOi6L4ccyOb6LEOrSHovSXpSg-L9uL1ZjdRCHW4tTS0-OMqafTsyFYcJeJ5FfpXvPvF6Ca01dFLnYexAAwGCLaWenBt3i9TNPKm",
-    badge: "Limited Edition",
-  },
-  {
-    id: "recall",
-    name: "Recall",
-    description: "Dusty Paper, Amber & White Musk",
-    price: 195.0,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuApbVxIF4MXGibTFX8DFEURSn2y9i0eB6_Wj8ijXeidYcaQB2j5QL6m17ejbZSw_vpOFWXORgBFg10X37Q0To4sNrXOdcjmsWGmQWg9bVHIOWigsYDv5hObllvkqTMSJH7CbFmUt0oCjTYr4Cxgd2czL7pqpbuiO9CfTH2jjdWURmHnXFwOA3crO-85d-r8nkIsa5jAoX5zTHTAlXfDv7eEg_cXQmDKnDFfPMi7gI3wIayZ8ea4gWWa9ICmIMb6lFxGBZQe814y",
-    badge: "Archive",
-  },
-];
-
 export default function ProductCarousel({
   title = "The Signature Series",
   subtitle = "Curated Olfactory Memories",
-  products = defaultProducts,
+  products = [],
   onAddToCart,
 }: ProductCarouselProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const cart = useCart();
+
+  const handleAddToCart = (product: Product) => {
+    if (onAddToCart) {
+      onAddToCart(product);
+    } else {
+      cart.addItem({
+        productId: product.id,
+        slug: product.slug ?? product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+      });
+      cart.openCart();
+    }
+  };
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollContainerRef.current) return;
@@ -96,7 +84,7 @@ export default function ProductCarousel({
           <ProductCard
             key={product.id}
             product={product}
-            onAddToCart={onAddToCart}
+            onAddToCart={handleAddToCart}
           />
         ))}
       </div>

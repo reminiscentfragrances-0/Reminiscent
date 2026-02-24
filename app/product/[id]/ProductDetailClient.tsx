@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext";
 
 export type ProductDetailData = {
   id: string;
+  slug: string;
   name: string;
   tagline: string;
   description: string;
+  price: number;
   priceLabel: string;
   heroImage: string;
   concentration: string;
@@ -21,33 +24,24 @@ export type ProductDetailData = {
 
 type OtherProduct = {
   id: string;
+  slug: string;
   name: string;
   label: string;
   image: string;
+};
+
+type Review = {
+  id: string;
+  authorName: string;
+  quote: string;
+  createdAt: string;
+  rating?: number | null;
 };
 
 interface ProductDetailClientProps {
   product: ProductDetailData;
   otherProducts: OtherProduct[];
 }
-
-const REVIEWS = [
-  {
-    quote:
-      "I wore this to a gala and three people stopped me to ask what I was wearing. It feels like a second skin, very intimate yet commanding.",
-    name: "Zoya Rehman",
-  },
-  {
-    quote:
-      "Finally a perfume that actually lasts the whole day. The dry down is incredible—warm, woody and perfectly balanced. Highly recommend.",
-    name: "Hamza Ali",
-  },
-  {
-    quote:
-      "It smells like a memory of a rainy day in a library. Very niche and sophisticated. Not your typical mass-market scent at all.",
-    name: "Sarah Khan",
-  },
-];
 
 const FEATURES = [
   { icon: "oil_barrel", label: "Premium Oil" },
@@ -61,7 +55,56 @@ export default function ProductDetailClient({
   product,
   otherProducts,
 }: ProductDetailClientProps) {
-  const { openCart } = useCart();
+  const { openCart, addItem } = useCart();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviewAuthor, setReviewAuthor] = useState("");
+  const [reviewQuote, setReviewQuote] = useState("");
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
+  const [reviewRating, setReviewRating] = useState(5);
+
+  useEffect(() => {
+    const slug = product.slug || product.id;
+    fetch(`/api/products/${slug}/reviews`)
+      .then((r) => r.json())
+      .then((data) => Array.isArray(data) && setReviews(data))
+      .catch(() => {});
+  }, [product.slug, product.id]);
+
+  const submitReview = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!reviewAuthor.trim() || !reviewQuote.trim() || reviewSubmitting) return;
+    setReviewSubmitting(true);
+    const slug = product.slug || product.id;
+    const res = await fetch(`/api/products/${slug}/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        authorName: reviewAuthor.trim(),
+        quote: reviewQuote.trim(),
+        rating: reviewRating,
+      }),
+    });
+    if (res.ok) {
+      const created = await res.json();
+      setReviews((prev) => [created, ...prev]);
+      setReviewAuthor("");
+      setReviewQuote("");
+      setReviewRating(5);
+    }
+    setReviewSubmitting(false);
+  };
+
+  const handleAddToCart = () => {
+    addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.heroImage,
+      quantity: 1,
+    });
+    openCart();
+  };
 
   return (
     <main className="bg-background-dark text-slate-100 min-h-screen">
@@ -125,7 +168,7 @@ export default function ProductDetailClient({
             </div>
             <button
               type="button"
-              onClick={openCart}
+              onClick={handleAddToCart}
               className="group relative flex items-center justify-center bg-background-darker border border-white/10 px-10 py-4 rounded-lg overflow-hidden transition-all hover:bg-black"
             >
               <span className="relative z-10 text-primary uppercase tracking-[0.2em] text-xs font-bold group-hover:text-white transition-colors">
@@ -241,16 +284,16 @@ export default function ProductDetailClient({
             Voices That Remember
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {REVIEWS.map((review) => (
+            {reviews.map((review) => (
               <div
-                key={review.name}
+                key={review.id}
                 className="p-10 border border-white/5 bg-background-dark/40 rounded-xl space-y-6"
               >
                 <div className="flex gap-1 text-primary">
                   {Array.from({ length: 5 }).map((_, idx) => (
                     <span
                       key={idx}
-                      className="material-symbols-outlined fill-1 text-sm"
+                      className={`material-symbols-outlined text-sm ${idx < (review.rating ?? 5) ? "fill-1" : "opacity-30"}`}
                     >
                       star
                     </span>
@@ -260,11 +303,61 @@ export default function ProductDetailClient({
                   {review.quote}
                 </p>
                 <p className="text-xs uppercase tracking-[0.2em] font-semibold text-slate-100">
-                  — {review.name}
+                  — {review.authorName}
                 </p>
               </div>
             ))}
           </div>
+          <form
+            onSubmit={submitReview}
+            className="mt-16 max-w-xl mx-auto space-y-4"
+          >
+            <h3 className="text-sm uppercase tracking-widest text-slate-400 mb-4">
+              Add your voice
+            </h3>
+            <div className="flex items-center gap-2 mb-2 text-primary">
+              <span className="text-[10px] uppercase tracking-widest text-slate-500 mr-2">
+                Rating
+              </span>
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setReviewRating(idx + 1)}
+                  className={`material-symbols-outlined text-lg transition-all focus:outline-none ${
+                    idx < reviewRating
+                      ? "fill-1"
+                      : "opacity-30 hover:opacity-70"
+                  }`}
+                >
+                  star
+                </button>
+              ))}
+            </div>
+            <input
+              type="text"
+              placeholder="Your name"
+              value={reviewAuthor}
+              onChange={(e) => setReviewAuthor(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white placeholder:text-white/30 outline-none focus:border-primary"
+            />
+            <textarea
+              placeholder="Your memory of this scent…"
+              value={reviewQuote}
+              onChange={(e) => setReviewQuote(e.target.value)}
+              rows={3}
+              className="w-full bg-white/5 border border-white/10 rounded px-4 py-3 text-white placeholder:text-white/30 outline-none focus:border-primary resize-none"
+            />
+            <button
+              type="submit"
+              disabled={
+                reviewSubmitting || !reviewAuthor.trim() || !reviewQuote.trim()
+              }
+              className="px-6 py-3 bg-primary/20 text-primary border border-primary/40 rounded hover:bg-primary/30 disabled:opacity-50 disabled:cursor-not-allowed text-sm uppercase tracking-widest"
+            >
+              {reviewSubmitting ? "Sending…" : "Submit"}
+            </button>
+          </form>
         </div>
       </section>
 
@@ -308,7 +401,7 @@ export default function ProductDetailClient({
           {otherProducts.map((item) => (
             <Link
               key={item.id}
-              href={`/product/${item.id}`}
+              href={`/product/${item.slug || item.id}`}
               className="group cursor-pointer space-y-6 block"
             >
               <div className="aspect-[3/4] overflow-hidden rounded-lg bg-background-darker">

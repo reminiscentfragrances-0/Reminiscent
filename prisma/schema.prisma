@@ -1,4 +1,4 @@
-// Prisma schema – Neon Postgres (billowing-grass-81057466)
+// Prisma schema – Neon Postgres
 // https://pris.ly/d/neon
 
 generator client {
@@ -11,11 +11,73 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// Example model – replace or extend for your app
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  reviews   Review[]
+}
+
+model Product {
+  id            String    @id @default(cuid())
+  name          String
+  slug          String    @unique // e.g. "linger", "trace" – for storefront URLs
+  sku           String?
+  category      String    @default("Parfum")
+  stock         Int       @default(0)
+  price         Decimal   @db.Decimal(10, 2)
+  // Storefront fields
+  tagline       String?
+  description   String?
+  heroImage     String?
+  concentration String?
+  longevity     String?
+  projection    String?
+  sizes         String?
+  topNotes      String?
+  heartNotes    String?
+  baseNotes     String?
+  badge         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  orderItems    OrderItem[]
+  reviews       Review[]
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique // e.g. ORD-1204
+  customerName    String
+  customerEmail   String
+  deliveryAddress String?
+  note            String?
+  status          String      @default("Processing") // Processing | Shipped | Delivered | Cancelled
+  total           Decimal     @db.Decimal(10, 2)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int      @default(1)
+  price     Decimal  @db.Decimal(10, 2) // price at time of order
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  authorName String  // display name (guest or from User)
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  quote     String   // review body
+  rating    Int?     // 1-5 optional
+  createdAt DateTime @default(now())
 }

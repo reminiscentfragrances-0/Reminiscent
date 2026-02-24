@@ -54,7 +54,7 @@ export default function Footer({
   columns = defaultColumns,
   socialLinks = defaultSocialLinks,
   legalLinks = defaultLegalLinks,
-  copyrightYear = 2024,
+  copyrightYear = new Date().getFullYear(),
 }: FooterProps) {
   return (
     <footer className="bg-background-dark border-t border-travertine/20 pt-20 pb-10">
@@ -124,7 +124,11 @@ export default function Footer({
           </p>
           <div className="flex gap-8 mt-4 md:mt-0">
             {legalLinks.map((link) => (
-              <a key={link.label} className="hover:text-parchment" href={link.href}>
+              <a
+                key={link.label}
+                className="hover:text-parchment"
+                href={link.href}
+              >
                 {link.label}
               </a>
             ))}

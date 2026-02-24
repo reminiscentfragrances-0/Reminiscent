@@ -38,8 +38,9 @@ export default function SideNav({
               href={item.href}
             >
               <span
-                className={`material-symbols-outlined ${item.isActive ? "text-parchment" : "text-parchment/60"
-                  } group-hover:text-primary transition-colors cursor-pointer`}
+                className={`material-symbols-outlined ${
+                  item.isActive ? "text-parchment" : "text-parchment/60"
+                } group-hover:text-primary transition-colors cursor-pointer`}
                 style={{ fontSize: 24 }}
               >
                 {item.icon}
@@ -58,7 +59,7 @@ export default function SideNav({
             type="button"
             onClick={openCart}
             className="group relative flex items-center justify-center"
-            aria-label={`Open cart (${count} items)`}
+            aria-label={`Open cart`}
           >
             <span
               className="material-symbols-outlined text-parchment group-hover:text-primary transition-colors cursor-pointer"

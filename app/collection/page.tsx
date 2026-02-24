@@ -1,166 +1,194 @@
+"use client";
+
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
+import { useCart } from "../context/CartContext";
 
-const categories = [
-  { id: "all", label: "All Memories", active: true },
-  { id: "earthy", label: "Earthy & Rooted", active: false },
-  { id: "floral", label: "Floral Whispers", active: false },
-  { id: "oceanic", label: "Oceanic Depths", active: false },
-];
+interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  heroImage: string;
+  price: number;
+  category: string;
+  tagline?: string;
+}
 
-const galleryItems = [
-  {
-    name: "Morning at the Library",
-    description:
-      "Dust motes dancing in sunbeams, old parchment, and the quiet promise of an unread story.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCXdoMjcZACZWWIX6cdgfkHBaX-mT7wP3_8-MVukQns0eYBPq0XbIgjwRdREwV0u5X3Z8ZBeasd0dMHw1fXfRf6OkOSpDlL7rpMbkY5Us2_VhfuTokwqDSUeMlmzcNKYlGF__wXNgKzDDxP9RsDycDyYSsexbrwCHfXZprce5ObBtjcT930qcZ5L6RVXWZqdLLz2Kc4pMX9gX7u16ITZXcmHLyV8eUyiuxsHQ8hFlryv19S1rh0Z5wMr4sF8C6423mdIQqUh1eF3ZcO",
-  },
-  {
-    name: "Rain on the Shore",
-    description:
-      "Cold salt spray, crushed lavender, and the melancholic beauty of a storm-swept coast.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCp0Q-cClZ4fzeNPt46jRgLbuVDFhL9L70DnP7OLPKnP8CcRYl3F2WucDytCaO1E4BS8DTxcXGTSegPG0L4FNkdh4EpEYZf1mNCX1LGkKQNhLUNEbVlIcS12qc7tA0mkVQln4ePi4caMHGbtl4zAEzIQUFq7E0UJ5LzabeUSLmFuAxTkc5OIBRmzggrJJS9EcYxgxQkd9mMxvhVyTeQSEoqtM8EwkXpGs9R1q3AY-Y1FXQnW1g60gx97T8AAuNbK-PcYraJRwy3DB1Z",
-  },
-  {
-    name: "Velvet Dusk",
-    description:
-      "The scent of midnight blossoms and the lingering warmth of a fire dying in the grate.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAeawYX5QXNLTDqWeV26jknujWx8VjI7LKhMgRpMPs6VDkgJvGOtsqWPqNljAtmI-DT7NB94x16CLsS7I-RKHZsXXzSbAmec7sbPd6LEFjlz0UW_4gk1-jIhrXAIrNnwYBbC3et88lbt19V-SXwvh6CNRj_w11rxe7llAUrH4Ql8mRMN-J31uTOfwKWDAlT79jKMkV65_jcXsZW8S6EPRgWDCCGyCrFe7boy_eGohuvCl4UcwhS7n4DrbuRlDS8cER_CkaQNHcekvZH",
-  },
-  {
-    name: "Winter Orchard",
-    description:
-      "Crisp frost on fallen apples, cedar wood, and the silence of a snow-covered valley.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCRfffoyp4RGUoi9LDbqf6EmR2YfA6IrnIFt8EfRA1Lrb1zPFt5XteHXQAps1rgRxh8enotGklhwIaXUDjFUsSmpTRTTymtmxHRv454ETfjuZvb4Gzb3IHZocsgGW5iqG1il7ZZ6-XVfqopxPC7LieGRbL7VLqmYdqA3Bc5xUZ8NNXVRvQe982HRr06JEHe_Tziof78jYoHuOOj3WxHJzyfbIbCViYueDUtNcwXjerI68hFhIUOUUalNlD3x0jFYNq63oofHHOabtQb",
-  },
-  {
-    name: "Antique Silk",
-    description:
-      "Powdery iris, worn leather gloves, and the scent of a hidden jewelry box.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuB-L8Sn74lZUGQvExYbwRg4fv5WcNUueSNmhiYQTIAu0b-j4VRA7wGovHnM_9eF-sHDnJvVJuYtx14KG_HJcINKryo4J6hq7NT1gvAMVcjt9qzG4tg5XDObN_veTFMS2zN92jdzgas_eyRXg9tt9f9AmrEbr5taiIiK5snQLhlvqyI4HmK28AMgzk5Q4AJt3QyZZVTDOVjBHbjW8qc8h1wPE6ipD2qC1f8rsbRnXzDDcnAEOd8Fjj8OJ-3VWtsznSenL6QpeuPZkgYd",
-  },
-  {
-    name: "Sun-Drenched Patio",
-    description:
-      "Warm terracotta, citrus zest, and the vibrant hum of a Mediterranean afternoon.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuB1QooSvUAofmeRltjuPFj3nnb6aDT72nM0G301ZiwlLwQ7xPySgX1ac7q0RqWafTAlUa0sDgHdgK51C3JKQ2rvhA9oCfTri44QT9WlIN5tZmcR78bZTs4w7yJTz6gsGcCX7AnhEUM0OJTxvhqHdZpZrEbjhRsRdHZNj-l0iCNylV9fp8HFyY2JuylCZYOSF9Yt4DBJNKKZnrPEb2plqSf7DL3F-rHGGXsRsn0XE52xsbPtBIMwydglFZFHXgP-0pTHgn2V1nWOpi-Q",
-  },
+const staticCategories = [
+  { id: "all", label: "Archives" },
+  { id: "parfum", label: "Signature" },
+  { id: "earthy", label: "Earthy" },
+  { id: "floral", label: "Floral" },
+  { id: "oceanic", label: "Oceanic" },
 ];
 
 export default function CollectionPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const cart = useCart();
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch("/api/products");
+        if (!res.ok) throw new Error("Failed to fetch products");
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  const filteredProducts = useMemo(() => {
+    if (activeCategory === "all") return products;
+    return products.filter(
+      (p) => p.category?.toLowerCase() === activeCategory.toLowerCase(),
+    );
+  }, [products, activeCategory]);
+
+  const handleAddToCart = (product: Product) => {
+    cart.addItem({
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      price: product.price,
+      image: product.heroImage,
+      quantity: 1,
+    });
+    cart.openCart();
+  };
+
   return (
-    <>
+    <div className="bg-background-dark min-h-screen">
       <SideNav />
       <Header />
-      <main className="relative flex-1 px-6 md:px-12 lg:px-24 pt-28 pb-20 max-w-[1400px] mx-auto w-full">
-        {/* Breadcrumbs */}
-        <div className="flex flex-wrap gap-2 py-4">
-          <Link
-            href="/"
-            className="text-ink/60 text-xs uppercase tracking-widest font-medium hover:text-primary transition-colors"
-          >
-            Archives
-          </Link>
-          <span className="text-ink/60 text-xs">/</span>
-          <span className="text-ink text-xs uppercase tracking-widest font-bold">
-            Fragrances
-          </span>
-        </div>
 
-        {/* Page Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-          <div className="max-w-2xl">
-            <h1 className="font-serif text-ink text-4xl md:text-5xl lg:text-6xl italic leading-tight tracking-tight">
-              The Fragrance Gallery
+      <main className="relative z-20 px-6 lg:px-40 pt-40 pb-32 max-w-[1400px]">
+        {/* Simplified Header with Category Navigation */}
+        <div className="flex flex-col gap-12 mb-20">
+          <div className="flex flex-col gap-4">
+            <h1 className="font-[family-name:var(--font-serif)] text-5xl md:text-6xl text-parchment leading-tight text-glow">
+              <span className="italic font-light opacity-80">Archives</span>
             </h1>
-            <p className="text-ink/70 text-base md:text-lg font-light leading-relaxed mt-4 max-w-lg">
-              A curated sanctuary of sensory memories preserved in glass. Each
-              scent is a vessel for a moment once lived, now immortalized.
+            <p className="text-parchment/40 uppercase tracking-[0.4em] text-[10px] md:text-xs">
+              A curated sanctuary of sensory memories
             </p>
           </div>
-        </div>
 
-        {/* Tabs & Filter */}
-        <div className="flex flex-col md:flex-row border-b border-travertine/30 justify-between items-center mb-12 gap-4">
-          <div className="flex gap-6 md:gap-12 overflow-x-auto w-full md:w-auto no-scrollbar pb-px">
-            {categories.map((cat) => (
-              <Link
-                key={cat.id}
-                href={cat.active ? "#" : "#"}
-                className={`flex flex-col items-center border-b-2 pb-4 pt-4 whitespace-nowrap transition-colors ${
-                  cat.active
-                    ? "border-primary text-ink"
-                    : "border-transparent text-ink/60 hover:text-ink"
-                }`}
-              >
-                <span className="text-xs font-bold uppercase tracking-widest">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-b border-travertine/10 pb-8">
+            <div className="flex gap-8 md:gap-12 overflow-x-auto w-full md:w-auto no-scrollbar">
+              {staticCategories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] transition-all relative py-2 ${
+                    activeCategory === cat.id
+                      ? "text-primary"
+                      : "text-parchment/40 hover:text-parchment"
+                  }`}
+                >
                   {cat.label}
-                </span>
-              </Link>
-            ))}
-          </div>
-          <div className="hidden md:flex items-center gap-2 text-ink/60 text-xs font-bold uppercase tracking-widest pb-4 md:pb-0">
-            <span>Filter By Era</span>
-            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
-              expand_more
-            </span>
+                  {activeCategory === cat.id && (
+                    <span className="absolute bottom-0 left-0 w-full h-px bg-primary animate-in fade-in" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            <div className="hidden md:flex items-center gap-4 text-parchment/40 text-[10px] uppercase tracking-[0.2em]">
+              <span>Showing {filteredProducts.length} Histories</span>
+            </div>
           </div>
         </div>
 
-        {/* Product Gallery Grid */}
-        <div
-          className="grid gap-12 md:gap-16"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          }}
-        >
-          {galleryItems.map((item) => (
-            <article
-              key={item.name}
-              className="flex flex-col group cursor-pointer"
-            >
-              <div className="aspect-[3/4] bg-evergreen/10 overflow-hidden mb-6 relative rounded-lg">
-                <div className="absolute inset-0 bg-obsidian/0 group-hover:bg-obsidian/5 transition-colors duration-500 z-10" />
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                />
-              </div>
-              <h3 className="font-serif text-ink text-2xl mb-2 group-hover:text-primary transition-colors">
-                {item.name}
-              </h3>
-              <p className="text-ink/70 text-sm italic mb-6 font-light">
-                {item.description}
-              </p>
-              <Link
-                href="/checkout"
-                className="block w-full py-4 text-center border border-travertine/50 text-ink text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:border-primary hover:text-obsidian transition-colors rounded-lg"
-              >
-                Discover
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
+          {filteredProducts.map((product) => (
+            <div key={product.id} className="group cursor-pointer">
+              <Link href={`/product/${product.slug}`} className="block">
+                <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-8">
+                  <div className="absolute inset-0 bg-obsidian/40 group-hover:bg-transparent transition-colors duration-700 z-10" />
+                  <div
+                    className="w-full h-full bg-center bg-cover grayscale group-hover:grayscale-0 transform group-hover:scale-110 transition-all duration-1000"
+                    style={{ backgroundImage: `url("${product.heroImage}")` }}
+                  />
+                  {product.category && (
+                    <div className="absolute top-6 left-6 z-20">
+                      <span className="px-3 py-1 bg-obsidian/60 backdrop-blur-md border border-travertine/20 text-[8px] uppercase tracking-[0.3em] text-parchment font-bold rounded-full">
+                        {product.category}
+                      </span>
+                    </div>
+                  )}
+                </div>
               </Link>
-            </article>
+
+              <div className="flex flex-col gap-2">
+                <Link href={`/product/${product.slug}`}>
+                  <h3 className="font-[family-name:var(--font-serif)] text-3xl text-parchment group-hover:text-primary transition-colors duration-300">
+                    {product.name}
+                  </h3>
+                </Link>
+                <p className="text-parchment/40 text-[10px] md:text-xs uppercase tracking-[0.2em] font-light">
+                  {product.tagline || product.category}
+                </p>
+                <p className="text-parchment/60 text-sm mt-2 line-clamp-2 italic font-light leading-relaxed">
+                  {product.description}
+                </p>
+
+                <div className="mt-8 flex items-center justify-between group/btn">
+                  <span className="text-parchment font-medium text-lg">
+                    Rs. {product.price.toLocaleString()}
+                  </span>
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="flex items-center gap-3 text-parchment/40 group-hover:text-primary transition-colors"
+                  >
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity">
+                      Add to Cart
+                    </span>
+                    <span className="material-symbols-outlined text-2xl">
+                      add_shopping_cart
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* View More */}
-        <div className="flex flex-col items-center mt-24 mb-12">
-          <div className="w-px h-24 bg-travertine/40 mb-8" />
-          <button
-            type="button"
-            className="text-ink text-xs font-bold uppercase tracking-[0.4em] hover:text-primary transition-colors"
-          >
-            View More Archives
-          </button>
-        </div>
+        {/* Empty State */}
+        {!loading && filteredProducts.length === 0 && (
+          <div className="py-40 text-center animate-in fade-in zoom-in-95 duration-1000">
+            <p className="text-parchment/20 font-[family-name:var(--font-serif)] italic text-3xl lg:text-5xl">
+              This chapter is yet to be written.
+            </p>
+            <button
+              onClick={() => setActiveCategory("all")}
+              className="mt-12 text-primary text-[10px] font-bold uppercase tracking-[0.5em] border border-primary/20 px-8 py-4 rounded-full hover:bg-primary hover:text-obsidian transition-all"
+            >
+              Return to Archives
+            </button>
+          </div>
+        )}
+
+        {/* View More Decor */}
+        {!loading && filteredProducts.length > 0 && (
+          <div className="flex flex-col items-center mt-40">
+            <div className="w-[1px] h-32 bg-linear-to-b from-travertine/40 to-transparent" />
+            <span className="mt-8 text-parchment/20 text-[10px] uppercase tracking-[0.8em]"></span>
+          </div>
+        )}
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

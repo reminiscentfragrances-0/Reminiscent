@@ -2,6 +2,7 @@ import Link from "next/link";
 
 export interface Product {
   id: string;
+  slug?: string;
   name: string;
   description: string;
   price: number;
@@ -20,7 +21,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   return (
     <div className="flex-none w-[320px] lg:w-[400px] group cursor-pointer">
-      <Link href={`/product/${product.id}`} className="block">
+      <Link href={`/product/${product.slug ?? product.id}`} className="block">
         {/* Image Container */}
         <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-6">
           <div className="absolute inset-0 bg-obsidian/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
@@ -33,7 +34,7 @@ export default function ProductCard({
 
       {/* Product Info */}
       <div>
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/product/${product.slug ?? product.id}`}>
           <h3 className="font-[family-name:var(--font-serif)] text-2xl text-parchment group-hover:text-primary transition-colors">
             {product.name}
           </h3>
@@ -41,7 +42,7 @@ export default function ProductCard({
         <p className="text-parchment/60 text-sm mt-1">{product.description}</p>
         <div className="mt-4 flex items-center justify-between">
           <span className="text-parchment font-medium">
-            ${product.price.toFixed(2)}
+            Rs. {product.price.toFixed(2)}
           </span>
           <button
             type="button"
