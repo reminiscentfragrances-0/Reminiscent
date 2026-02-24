@@ -1,12 +1,21 @@
 @import "tailwindcss";
 
-/* ─── Design Tokens (Tailwind v4 @theme) ─── */
+/* ─── Design Tokens (Tailwind v4 @theme) — Obsidian Forest Palette ─── */
 @theme inline {
-  /* Brand Colors */
-  --color-primary: #1754cf;
-  --color-background-light: #f6f6f8;
-  --color-background-dark: #111621;
-  --color-background-darker: #0c1018;
+  /* Primary Brand Palette */
+  --color-obsidian: #051F1C;        /* Obsidian Forest — hero, nav, depth */
+  --color-evergreen: #0B2B23;      /* Evergreen Shadow — cards, layered */
+  --color-parchment: #F2EEE9;      /* Heirloom Parchment — 60% main bg */
+  --color-travertine: #D9C5B2;     /* Muted Travertine — 10% accents */
+  --color-ink: #262626;            /* Charcoal Ink — body text */
+  --color-gold: #C0A46A;           /* Antique Gold — decorative */
+
+  /* Semantic Aliases (60–30–10) */
+  --color-background: #F2EEE9;      /* Heirloom Parchment — calm foundation */
+  --color-background-dark: #051F1C; /* Obsidian Forest — structure */
+  --color-background-darker: #0B2B23; /* Evergreen Shadow — layered */
+  --color-primary: #D9C5B2;        /* Muted Travertine — buttons, hover */
+  --color-accent: #C0A46A;         /* Antique Gold — rules, underlines */
 
   /* Typography */
   --font-display: "Manrope", sans-serif;
@@ -25,41 +34,40 @@ html {
 }
 
 body {
-  background: var(--color-background-dark);
-  color: #ffffff;
+  background: var(--color-background);
+  color: var(--color-ink);
   font-family: var(--font-display);
 }
 
 ::selection {
-  background: rgba(23, 84, 207, 0.3);
+  background: rgba(217, 197, 178, 0.35);
 }
 
-/* ─── Glassmorphism Utility ─── */
+/* ─── Glassmorphism Utility (Obsidian / Evergreen tint) ─── */
 .glass {
-  background: rgba(17, 22, 33, 0.4);
+  background: rgba(5, 31, 28, 0.5);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(242, 238, 233, 0.12);
 }
 
-/* Less transparent on mobile (e.g. bottom nav) */
 .glass-nav {
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(242, 238, 233, 0.12);
 }
 @media (max-width: 1023px) {
   .glass-nav {
-    background: rgba(17, 22, 33, 0.3);
+    background: rgba(5, 31, 28, 0.85);
   }
 }
 @media (min-width: 1024px) {
   .glass-nav {
-    background: rgba(17, 22, 33, 0.4);
+    background: rgba(5, 31, 28, 0.75);
   }
 }
 
-/* ─── Text Glow Utility ─── */
+/* ─── Text Glow Utility (on dark sections) ─── */
 .text-glow {
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 20px rgba(242, 238, 233, 0.15);
 }
 
 /* ─── Custom Scrollbar Hiding ─── */

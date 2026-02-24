@@ -57,33 +57,33 @@ export default function Footer({
   copyrightYear = 2024,
 }: FooterProps) {
   return (
-    <footer className="bg-background-dark border-t border-white/5 pt-20 pb-10">
+    <footer className="bg-background-dark border-t border-travertine/20 pt-20 pb-10">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-40">
         {/* Main Grid */}
         <div className="grid md:grid-cols-4 gap-12 mb-20">
           {/* Brand Column */}
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-8 w-8 bg-white/5 rounded-full flex items-center justify-center border border-white/10">
+              <div className="h-8 w-8 bg-parchment/5 rounded-full flex items-center justify-center border border-travertine/30">
                 <span
-                  className="material-symbols-outlined text-white"
+                  className="material-symbols-outlined text-parchment"
                   style={{ fontSize: 16 }}
                 >
                   diamond
                 </span>
               </div>
-              <span className="text-white text-base font-bold tracking-widest uppercase">
+              <span className="text-parchment text-base font-bold tracking-widest uppercase">
                 {brandName}
               </span>
             </div>
-            <p className="text-white/40 max-w-xs text-sm leading-relaxed mb-8">
+            <p className="text-parchment/60 max-w-xs text-sm leading-relaxed mb-8">
               {description}
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.icon}
-                  className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary transition-colors"
+                  className="h-10 w-10 rounded-full bg-parchment/5 flex items-center justify-center text-parchment hover:bg-primary hover:text-obsidian transition-colors"
                   href={social.href}
                   aria-label={social.icon}
                 >
@@ -98,14 +98,14 @@ export default function Footer({
           {/* Link Columns */}
           {columns.map((column) => (
             <div key={column.title}>
-              <h6 className="text-white font-bold text-xs uppercase tracking-widest mb-6">
+              <h6 className="text-parchment font-bold text-xs uppercase tracking-widest mb-6">
                 {column.title}
               </h6>
-              <ul className="space-y-4 text-sm text-white/40">
+              <ul className="space-y-4 text-sm text-parchment/60">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     <a
-                      className="hover:text-white transition-colors"
+                      className="hover:text-parchment transition-colors"
                       href={link.href}
                     >
                       {link.label}
@@ -118,13 +118,13 @@ export default function Footer({
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-white/5 pt-10 text-[10px] text-white/30 uppercase tracking-[0.2em]">
+        <div className="flex flex-col md:flex-row justify-between items-center border-t border-travertine/20 pt-10 text-[10px] text-parchment/50 uppercase tracking-[0.2em]">
           <p>
             © {copyrightYear} {brandName} Fragrances. All rights reserved.
           </p>
           <div className="flex gap-8 mt-4 md:mt-0">
             {legalLinks.map((link) => (
-              <a key={link.label} className="hover:text-white" href={link.href}>
+              <a key={link.label} className="hover:text-parchment" href={link.href}>
                 {link.label}
               </a>
             ))}

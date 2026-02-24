@@ -38,20 +38,20 @@ export default function SideNav({
               href={item.href}
             >
               <span
-                className={`material-symbols-outlined ${item.isActive ? "text-white" : "text-white/50"
+                className={`material-symbols-outlined ${item.isActive ? "text-parchment" : "text-parchment/60"
                   } group-hover:text-primary transition-colors cursor-pointer`}
                 style={{ fontSize: 24 }}
               >
                 {item.icon}
               </span>
-              <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-background-dark px-3 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap lg:left-14 lg:bottom-auto lg:mb-0 lg:translate-x-0">
+              <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-obsidian px-3 py-1 rounded text-xs text-parchment opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap lg:left-14 lg:bottom-auto lg:mb-0 lg:translate-x-0">
                 {item.label}
               </span>
             </a>
           ))}
 
           {/* Divider */}
-          <div className="w-px h-8 bg-white/10 lg:w-8 lg:h-px" />
+          <div className="w-px h-8 bg-parchment/15 lg:w-8 lg:h-px" />
 
           {/* Cart */}
           <button
@@ -61,12 +61,12 @@ export default function SideNav({
             aria-label={`Open cart (${count} items)`}
           >
             <span
-              className="material-symbols-outlined text-white group-hover:text-primary transition-colors cursor-pointer"
+              className="material-symbols-outlined text-parchment group-hover:text-primary transition-colors cursor-pointer"
               style={{ fontSize: 24 }}
             >
               shopping_bag
             </span>
-            <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-background-dark px-3 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap lg:left-14 lg:bottom-auto lg:mb-0 lg:translate-x-0">
+            <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-obsidian px-3 py-1 rounded text-xs text-parchment opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap lg:left-14 lg:bottom-auto lg:mb-0 lg:translate-x-0">
               Cart ({count})
             </span>
           </button>
