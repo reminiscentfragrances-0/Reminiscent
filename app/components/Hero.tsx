@@ -2,8 +2,6 @@ interface HeroProps {
   title?: string;
   titleAccent?: string;
   description?: string;
-  ctaLabel?: string;
-  secondaryCtaLabel?: string;
   backgroundImage?: string;
 }
 
@@ -11,8 +9,6 @@ export default function Hero({
   title = "Memories Bottled",
   titleAccent = "in Stone and Scent",
   description = "A cinematic collection of sensory recalls and high-end niche essences. Crafted for those who find beauty in the traces left behind.",
-  ctaLabel = "Explore Archive",
-  secondaryCtaLabel = "The Film",
   backgroundImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuDLnWWH9KfQ37TPAF587IrcA0QFSi7VWulqfWRnvulVVeeIO1YXyHzK39Jqa7-nZ-NDN9nc1LC4qGgMFAHIBlIfhqeHv9Tm_hH3RxWhq8UClWz9SBUS7o6eNA8yHa1Dt5Zat22jTJAYDvl0CODO-Uk8I3dt5LuAdi1GBV8I1hyWHoDsR1qh-hzWZVG6VfdJAXVlLmMfxB-OfDYvcanEy0bk1GHM6VCX7wvvQtYtVgT2_rmUc62t0oXkEoMDOblBrG4q18L4hxpM",
 }: HeroProps) {
   return (
@@ -37,20 +33,6 @@ export default function Hero({
           <p className="text-parchment/80 text-lg md:text-xl font-light max-w-xl leading-relaxed">
             {description}
           </p>
-          <div className="flex items-center gap-6 mt-4">
-            {/* <button className="bg-white text-background-dark px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-primary hover:text-white transition-all duration-300">
-              {ctaLabel}
-            </button>
-            <a
-              className="group flex items-center gap-3 text-sm font-bold tracking-widest uppercase"
-              href="#"
-            >
-              {secondaryCtaLabel}
-              <span className="material-symbols-outlined text-travertine group-hover:translate-x-1 transition-transform">
-                play_circle
-              </span>
-            </a> */}
-          </div>
         </div>
       </div>
     </section>

@@ -25,13 +25,6 @@ export default function ProductCard({
           className="w-full h-full bg-center bg-cover transform group-hover:scale-110 transition-transform duration-700"
           style={{ backgroundImage: `url("${product.image}")` }}
         />
-        {product.badge && (
-          <div className="absolute top-4 left-4 z-20">
-            <span className="glass px-3 py-1 rounded text-[10px] tracking-widest uppercase">
-              {product.badge}
-            </span>
-          </div>
-        )}
       </div>
 
       {/* Product Info */}
