@@ -74,9 +74,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         tabIndex={0}
         aria-label="Close cart"
         onClick={closeCart}
-        className={`fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm transition-opacity duration-300 lg:bg-black/40 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm transition-opacity duration-300 lg:bg-black/40 ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       />
       {/* Sidebar (desktop) / Bottom sheet (mobile) */}
       <aside
@@ -149,7 +148,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
               <Link
                 href="/checkout"
                 onClick={closeCart}
-                className="block w-full text-center px-6 py-4 bg-primary text-white font-medium font-serif text-sm tracking-wide hover:bg-primary/90 transition-all rounded-lg"
+                className="block w-full text-center px-6 py-4 bg-gold text-obsidian font-medium font-serif text-sm tracking-wide hover:bg-gold/90 transition-all rounded shadow-lg shadow-gold/10"
               >
                 Checkout
               </Link>

@@ -398,7 +398,7 @@ export default function BackOfficePage() {
       {/* Footer Info */}
       <footer className="max-w-7xl mx-auto px-6 py-12 border-t border-travertine/10 text-mint/20 text-[10px] uppercase tracking-[0.2em] flex justify-between items-center">
         <span>Reminiscent Back Office — Ritual Ledger v1.0</span>
-        <span>© 2024 All Memories Reserved</span>
+        <span>© {new Date().getFullYear()} All Memories Reserved</span>
       </footer>
     </div>
   );
