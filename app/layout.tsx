@@ -3,6 +3,7 @@ import { Manrope, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import { ApiProgressProvider } from "./components/ApiProgressProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const manrope = Manrope({
   variable: "--font-display",
@@ -46,6 +47,7 @@ export default function RootLayout({
         <CartProvider>
           <ApiProgressProvider>{children}</ApiProgressProvider>
         </CartProvider>
+        <Analytics />
       </body>
     </html>
   );
