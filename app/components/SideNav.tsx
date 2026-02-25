@@ -30,12 +30,9 @@ const iconMap: Record<string, React.ElementType> = {
   menu_book: MenuBookOutlinedIcon,
 };
 
-export default function SideNav({
-  items = defaultNavItems,
-  cartCount,
-}: SideNavProps) {
+export default function SideNav({ items = defaultNavItems }: SideNavProps) {
   const { openCart, itemCount } = useCart();
-  const count = cartCount ?? itemCount;
+  const count = itemCount;
 
   return (
     <nav className="fixed bottom-6 left-8 right-8 z-50 lg:bottom-auto lg:left-6 lg:right-auto lg:top-1/2 lg:-translate-y-1/2">

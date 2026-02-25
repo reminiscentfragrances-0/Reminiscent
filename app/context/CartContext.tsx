@@ -63,7 +63,11 @@ export function useCart() {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [items, setItems] = useState<CartItem[]>(loadCart);
+  const [items, setItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    setItems(loadCart());
+  }, []);
 
   const openCart = useCallback(() => setIsOpen(true), []);
   const closeCart = useCallback(() => setIsOpen(false), []);

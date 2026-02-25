@@ -13,36 +13,16 @@ interface JournalProps {
   posts?: JournalPost[];
 }
 
-const defaultPosts: JournalPost[] = [
-  {
-    id: "frankincense",
-    category: "Raw Materials",
-    title: "The Sourcing of Somalian Frankincense",
-    description:
-      "An exploration into the high-altitude resins that form the backbone of our 'Ancient Ink' collection.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDDCKWGyN8CQAbaKPA_4QBMwXq0X5OVo81sxVTBL_w2Glsxwj3UIpX2fw0UW6DyXtsF-BUjMyQiy9f-729MNLnsNx6nznwPcCMqtPml5Gc1od6OxlFTqxhs_mbqyJlCbANu5lAA4GsUmRB9rW8vWTJGrMQNnP-5K9Yh2Z8aGkeqbMwlUfQ9zOhKPlclhCGKpzzJysULEJRG8ZrblOFazdIwxY6GzcA4h8v7eJV1WuKa_6gx7rhP0WaRrkouNBjOMkYwTX9gVVpY",
-  },
-  {
-    id: "travertine",
-    category: "Architecture",
-    title: "Form and Function: The Travertine Cap",
-    description:
-      "Why we chose the porous, architectural nature of travertine stone as our signature tactile element.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAs-dpLDysJF_yfd2KlOw5rul5KT1WFFcxEGS0zWHMYHL-wELMHbcR1xggMuGA3ALJrCc1nnY6I_WtAVnr6828r3eKiV12QA1-vNONpi67CyxeeMFTv8ClUqBY6oRj9JM4vHbfGPnitsGM_Gbz49Sc00wIkD7tnxkKvkMa6RJQbskH7JN2aKR6scmr8h4tqDdf-xWkxZv2cCyPTNXyBrEtSTPWEsDVbv-VC27TNExE4CGCpGVusqCw93t_9ptBGvpHW_pakvNQq",
-    offset: true,
-  },
-];
-
 import Link from "next/link";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 export default function Journal({
   label = "The Journal",
   title = "Notes from the Laboratory",
-  posts = defaultPosts,
+  posts = [],
 }: JournalProps) {
+  if (posts.length === 0) return null;
+
   return (
     <section className="max-w-[1440px] mx-auto px-6 lg:px-20 py-32 bg-background-dark">
       {/* Section Header */}
@@ -58,11 +38,11 @@ export default function Journal({
 
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-        {posts.map((post) => (
+        {posts.map((post, index) => (
           <div
             key={post.id}
             className={`flex flex-col gap-8 group cursor-pointer ${
-              post.offset ? "md:mt-24" : ""
+              index % 2 !== 0 ? "md:mt-24" : ""
             }`}
           >
             <div className="aspect-video overflow-hidden rounded-xl">
@@ -86,10 +66,10 @@ export default function Journal({
         ))}
       </div>
 
-      {/* Link to full Philosophy / Journal page */}
+      {/* Link to full Journal page */}
       <div className="text-center mt-20">
         <Link
-          href="/philosophy"
+          href="/journal"
           className="inline-flex items-center gap-3 text-parchment/70 hover:text-primary transition-colors group"
         >
           <span className="text-xs uppercase tracking-[0.4em] font-light">

@@ -1,119 +1,201 @@
+"use client";
+
+import { useEffect, useState, useMemo } from "react";
+import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 
-const filterTabs = [
-  { label: "All Entries", active: true },
-  { label: "Olfactory Poetry", active: false },
-  { label: "Fragrant Memories", active: false },
-  { label: "Philosophical Musings", active: false },
-];
+interface JournalEntry {
+  id: string;
+  slug: string;
+  category: string;
+  title: string;
+  description: string;
+  body?: string | null;
+  image?: string | null;
+  featured: boolean;
+  publishedAt: string;
+}
 
-const journalEntries = [
-  {
-    category: "October 14, 2023 — Olfactory Poetry",
-    title: "The Ghost of a Rose",
-    description:
-      "In the quiet corners of a forgotten garden, the scent of crushed petals evokes a childhood long passed, where time stood still under the weight of summer dew. It is not the rose itself we remember, but the hollow space it left in the air after the harvest.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCbyLWiDYyYF5gVzjawBmNVsumPFWBkaM1T7QNZFWYH9yfx5bsN70EulMtU7nXJ33FQIlXcbbdAbvm5MI8Mv8CX3s3cp8-s0BG9wIJN9b6I0qcU9DDaJ2YANpCsvoD3DUgR0OPhbgtTDGL_BfDtEi3W35JZV76I6aRBk0tX4OvLdAG_4BEW9-Ut0vaoq81DqSmsrc4HOSjC23m6ldajfyrusuCY-FPXKxILYhwdfV8y0mPeqPrwMgpZsckqsQOu88AMHaYvqsCouiqn",
-  },
-  {
-    category: "September 28, 2023 — Philosophical Musings",
-    title: "Scent as a Vessel for Time",
-    description:
-      "How does a single molecule carry the weight of a decade? Exploring the architecture of memory through the lens of niche perfumery. We are all archives of invisible maps, guided by the phantom limbs of aromas we once knew.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCpobVXBb5hdHMnNNiyxqEj1NKh6gkedeu0ngvW6USSQum4pq6_d6_r_7mKM5hdcqoNazdKqHm6EeVeQSEz37RLS7fFm861K6TFUrUhk47WadOsmOabLHRdPfdyPS9z23dRmnz8sUR26bOf9-qs50wakWu72I9UA1xyMtCmVzbRLQqx4K1jp6sQmrG1TCW2Xj2EFwGbU-lGAXFsR5rIsL2Py_-4wmDMSjJGFjuXOoiBnujH3pJVxcZLPnN2g-Vsmdii4jI4wKLGlClH",
-  },
-  {
-    category: "September 12, 2023 — Fragrant Memories",
-    title: "The Anatomy of Melancholy",
-    description:
-      "Rain-slicked pavement and the iron-rich scent of impending storms. Why does the smell of earth before rain feel like a homecoming? In the heart of the storm, we find the notes that compose our most silent griefs.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCnY4uNVP69syLBeXGINeKsopEWTBGFlnJOrrIKM91zUmiI5As99PT91u0WNwdxVmesGWlBvmfb-tHcX2YLmbSAYtBJYRYcfW7i167aPd9_4WkAptVEP8ykP0oYHs315sWYC6JhWExb195HCxAUDkN4lPw3_et2yUV-TDWzJKPusvolgh4BWtDzDV1SBqOdtEFhDowTkGopsjBrUsM6pZbqUGnkAaWDkH1B0ZvM4J4-oNXW_MiOon4pciHb0QvI8JWBgJ0sjCnWAl-J",
-  },
-];
+export default function JournalPage() {
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [loading, setLoading] = useState(true);
 
-export default function PhilosophyPage() {
+  useEffect(() => {
+    async function fetchEntries() {
+      try {
+        const res = await fetch("/api/journal");
+        if (!res.ok) throw new Error("Failed to fetch journal entries");
+        const data = await res.json();
+        setEntries(data.entries);
+        setCategories(data.categories);
+      } catch (error) {
+        console.error("Error fetching journal entries:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchEntries();
+  }, []);
+
+  const filteredEntries = useMemo(() => {
+    if (activeCategory === "all") return entries;
+    return entries.filter(
+      (e) => e.category.toLowerCase() === activeCategory.toLowerCase(),
+    );
+  }, [entries, activeCategory]);
+
+  const formatDate = (dateStr: string) => {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
-    <>
+    <div className="bg-background-dark min-h-screen">
       <SideNav />
       <Header />
-      <main className="relative flex-1 min-h-screen pt-28 pb-20">
-        <div className="max-w-[800px] mx-auto px-6 py-12 md:py-24">
-          {/* Page Heading */}
-          <div className="flex flex-col gap-6 mb-20 text-center">
-            <h1 className="text-ink text-5xl md:text-7xl font-extralight italic tracking-tight leading-[1.1] font-[family-name:var(--font-serif)]">
-              The Journal
+
+      <main className="relative z-20 px-6 lg:px-40 pt-40 pb-32 max-w-[1400px]">
+        {/* Page Heading */}
+        <div className="flex flex-col gap-12 mb-20">
+          <div className="flex flex-col gap-4">
+            <h1 className="font-[family-name:var(--font-serif)] text-5xl md:text-6xl text-parchment leading-tight text-glow">
+              <span className="italic font-light opacity-80">The Journal</span>
             </h1>
-            <p className="text-ink/70 text-lg font-light max-w-xl mx-auto italic">
+            <p className="text-parchment/40 uppercase tracking-[0.4em] text-[10px] md:text-xs max-w-lg">
               A digital sanctuary for memories, thoughts, and philosophical
-              explorations of scent. A space where time dissolves into ether.
+              explorations of scent
             </p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="mb-16">
-            <div className="flex border-b border-travertine/30 justify-center gap-12 flex-wrap">
-              {filterTabs.map((tab) => (
+          {/* Category Navigation */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-b border-travertine/10 pb-8">
+            <div className="flex gap-8 md:gap-12 overflow-x-auto w-full md:w-auto no-scrollbar">
+              <button
+                onClick={() => setActiveCategory("all")}
+                className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] transition-all relative py-2 whitespace-nowrap ${
+                  activeCategory === "all"
+                    ? "text-primary"
+                    : "text-parchment/40 hover:text-parchment"
+                }`}
+              >
+                All Entries
+                {activeCategory === "all" && (
+                  <span className="absolute bottom-0 left-0 w-full h-px bg-primary animate-in fade-in" />
+                )}
+              </button>
+              {categories.map((cat) => (
                 <button
-                  key={tab.label}
-                  type="button"
-                  className={`flex flex-col items-center justify-center border-b-2 pb-4 ${
-                    tab.active
-                      ? "border-primary text-primary"
-                      : "border-transparent text-ink/60 hover:text-primary transition-colors"
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] transition-all relative py-2 whitespace-nowrap ${
+                    activeCategory === cat
+                      ? "text-primary"
+                      : "text-parchment/40 hover:text-parchment"
                   }`}
                 >
-                  <span className="text-xs font-medium tracking-[0.3em] uppercase">
-                    {tab.label}
-                  </span>
+                  {cat}
+                  {activeCategory === cat && (
+                    <span className="absolute bottom-0 left-0 w-full h-px bg-primary animate-in fade-in" />
+                  )}
                 </button>
               ))}
             </div>
-          </div>
 
-          {/* Journal Feed */}
-          <div className="flex flex-col gap-32">
-            {journalEntries.map((entry, index) => (
-              <article key={entry.title} className="group cursor-pointer">
-                <div className="flex flex-col gap-8">
-                  <div
-                    className="w-full bg-center bg-no-repeat aspect-[21/9] bg-cover rounded-sm grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
-                    style={{ backgroundImage: `url("${entry.image}")` }}
-                    role="img"
-                    aria-label={entry.title}
-                  />
-                  <div className="flex flex-col gap-4">
-                    <span className="text-ink/60 text-xs font-light tracking-[0.4em] uppercase">
-                      {entry.category}
-                    </span>
-                    <h2 className="text-ink text-3xl md:text-4xl font-light italic leading-tight font-[family-name:var(--font-serif)]">
-                      {entry.title}
-                    </h2>
-                    <p className="text-ink/70 text-lg font-light italic">
-                      {entry.description}
-                    </p>
-                    <div className="pt-4 flex items-center gap-4">
-                      <div className="h-[1px] w-12 bg-primary" />
-                      <span className="text-primary text-xs font-medium tracking-[0.2em] uppercase hover:tracking-[0.3em] transition-all">
-                        Continue Reading
+            <div className="hidden md:flex items-center gap-4 text-parchment/40 text-[10px] uppercase tracking-[0.2em]">
+              <span>
+                {loading
+                  ? "Loading…"
+                  : `Showing ${filteredEntries.length} ${filteredEntries.length === 1 ? "Entry" : "Entries"}`}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Journal Feed */}
+        {!loading && (
+          <div className="flex flex-col gap-32 max-w-[800px] mx-auto">
+            {filteredEntries.map((entry, index) => (
+              <Link
+                href={`/journal/${entry.slug}`}
+                key={entry.id}
+                className="group cursor-pointer block"
+              >
+                <article>
+                  <div className="flex flex-col gap-8">
+                    {entry.image && (
+                      <div className="relative aspect-[21/9] rounded-xl overflow-hidden">
+                        <div className="absolute inset-0 bg-obsidian/30 group-hover:bg-transparent transition-colors duration-700 z-10" />
+                        <div
+                          className="w-full h-full bg-center bg-cover grayscale-[30%] group-hover:grayscale-0 transform group-hover:scale-105 transition-all duration-1000"
+                          style={{
+                            backgroundImage: `url("${entry.image}")`,
+                          }}
+                        />
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-4">
+                      <span className="text-parchment/40 text-[10px] font-light tracking-[0.4em] uppercase">
+                        {formatDate(entry.publishedAt)} — {entry.category}
                       </span>
+                      <h2 className="text-parchment text-3xl md:text-4xl font-light italic leading-tight font-[family-name:var(--font-serif)] group-hover:text-primary transition-colors duration-300">
+                        {entry.title}
+                      </h2>
+                      <p className="text-parchment/60 text-lg font-light italic leading-relaxed">
+                        {entry.description}
+                      </p>
+                      <div className="pt-4 flex items-center gap-4">
+                        <div className="h-[1px] w-12 bg-primary" />
+                        <span className="text-primary text-xs font-medium tracking-[0.2em] uppercase hover:tracking-[0.3em] transition-all">
+                          Continue Reading
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                {index < journalEntries.length - 1 && (
-                  <div className="flex justify-center mt-16">
-                    <div className="w-24 h-[1px] bg-travertine/40" />
-                  </div>
-                )}
-              </article>
+                  {index < filteredEntries.length - 1 && (
+                    <div className="flex justify-center mt-16">
+                      <div className="w-24 h-[1px] bg-travertine/20" />
+                    </div>
+                  )}
+                </article>
+              </Link>
             ))}
           </div>
+        )}
 
-          {/* Footer / Pagination */}
-          <div className="mt-32 border-t border-travertine/30 pt-16 text-center">
+        {/* Loading State */}
+        {loading && (
+          <div className="py-40 text-center">
+            <p className="text-parchment/20 font-[family-name:var(--font-serif)] italic text-3xl lg:text-5xl animate-pulse">
+              Unveiling chapters…
+            </p>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && filteredEntries.length === 0 && (
+          <div className="py-40 text-center">
+            <p className="text-parchment/20 font-[family-name:var(--font-serif)] italic text-3xl lg:text-5xl">
+              This chapter is yet to be written.
+            </p>
+            <button
+              onClick={() => setActiveCategory("all")}
+              className="mt-12 text-primary text-[10px] font-bold uppercase tracking-[0.5em] border border-primary/20 px-8 py-4 rounded-full hover:bg-primary hover:text-obsidian transition-all"
+            >
+              View All Entries
+            </button>
+          </div>
+        )}
+
+        {/* Footer Pagination */}
+        {!loading && filteredEntries.length > 0 && (
+          <div className="mt-32 border-t border-travertine/10 pt-16 text-center max-w-[800px] mx-auto">
             <button
               type="button"
               className="group flex items-center gap-4 mx-auto text-primary"
@@ -130,13 +212,18 @@ export default function PhilosophyPage() {
                 }}
               />
             </button>
-            <div className="mt-24 mb-12 text-ink/50 text-[10px] tracking-[0.5em] uppercase">
-              © The Reminiscent Journal — MMXXIV
-            </div>
           </div>
-        </div>
+        )}
+
+        {/* View More Decor */}
+        {!loading && filteredEntries.length > 0 && (
+          <div className="flex flex-col items-center mt-40">
+            <div className="w-[1px] h-32 bg-linear-to-b from-travertine/40 to-transparent" />
+          </div>
+        )}
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

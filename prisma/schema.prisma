@@ -81,3 +81,17 @@ model Review {
   rating    Int?     // 1-5 optional
   createdAt DateTime @default(now())
 }
+
+model JournalEntry {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  category    String              // e.g. "Olfactory Poetry", "Fragrant Memories"
+  title       String
+  description String              // short excerpt / preview
+  body        String?             // full article content (markdown)
+  image       String?
+  featured    Boolean  @default(false) // show on homepage
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
