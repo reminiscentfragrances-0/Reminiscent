@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
+import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 
 const filterTabs = [
   { label: "All Entries", active: true },
@@ -121,9 +121,14 @@ export default function PhilosophyPage() {
               <span className="text-xs tracking-[0.4em] uppercase font-light">
                 Load Earlier Chapters
               </span>
-              <span className="material-symbols-outlined group-hover:translate-y-1 transition-transform">
-                expand_more
-              </span>
+              <ExpandMoreOutlinedIcon
+                sx={{
+                  transition: "transform 0.2s",
+                  ".group:hover &": {
+                    transform: "translateY(4px)",
+                  },
+                }}
+              />
             </button>
             <div className="mt-24 mb-12 text-ink/50 text-[10px] tracking-[0.5em] uppercase">
               © The Reminiscent Journal — MMXXIV

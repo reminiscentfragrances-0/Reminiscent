@@ -3,19 +3,19 @@
 /* ─── Design Tokens (Tailwind v4 @theme) — Obsidian Forest Palette ─── */
 @theme inline {
   /* Primary Brand Palette */
-  --color-obsidian: #051F1C;        /* Obsidian Forest — hero, nav, depth */
-  --color-evergreen: #0B2B23;      /* Evergreen Shadow — cards, layered */
-  --color-parchment: #F2EEE9;      /* Heirloom Parchment — 60% main bg */
-  --color-travertine: #D9C5B2;     /* Muted Travertine — 10% accents */
-  --color-ink: #262626;            /* Charcoal Ink — body text */
-  --color-gold: #C0A46A;           /* Antique Gold — decorative */
+  --color-obsidian: #051f1c; /* Obsidian Forest — hero, nav, depth */
+  --color-evergreen: #0b2b23; /* Evergreen Shadow — cards, layered */
+  --color-parchment: #f2eee9; /* Heirloom Parchment — 60% main bg */
+  --color-travertine: #d9c5b2; /* Muted Travertine — 10% accents */
+  --color-ink: #262626; /* Charcoal Ink — body text */
+  --color-gold: #c0a46a; /* Antique Gold — decorative */
 
   /* Semantic Aliases (60–30–10) */
-  --color-background: #F2EEE9;      /* Heirloom Parchment — calm foundation */
-  --color-background-dark: #051F1C; /* Obsidian Forest — structure */
-  --color-background-darker: #0B2B23; /* Evergreen Shadow — layered */
-  --color-primary: #D9C5B2;        /* Muted Travertine — buttons, hover */
-  --color-accent: #C0A46A;         /* Antique Gold — rules, underlines */
+  --color-background: #f2eee9; /* Heirloom Parchment — calm foundation */
+  --color-background-dark: #051f1c; /* Obsidian Forest — structure */
+  --color-background-darker: #0b2b23; /* Evergreen Shadow — layered */
+  --color-primary: #d9c5b2; /* Muted Travertine — buttons, hover */
+  --color-accent: #c0a46a; /* Antique Gold — rules, underlines */
 
   /* Typography */
   --font-display: "Manrope", sans-serif;
@@ -77,23 +77,4 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* ─── Material Symbols Base ─── */
-.material-symbols-outlined {
-  font-family: "Material Symbols Outlined";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "liga";
 }

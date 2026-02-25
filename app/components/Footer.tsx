@@ -1,3 +1,7 @@
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import InstagramIcon from "@mui/icons-material/Instagram";
+
 interface FooterLink {
   label: string;
   href: string;
@@ -12,7 +16,7 @@ interface FooterProps {
   brandName?: string;
   description?: string;
   columns?: FooterColumn[];
-  socialLinks?: { icon: string; href: string }[];
+  socialLinks?: { icon: string; component: React.ElementType; href: string }[];
   legalLinks?: FooterLink[];
   copyrightYear?: number;
 }
@@ -39,8 +43,8 @@ const defaultColumns: FooterColumn[] = [
 ];
 
 const defaultSocialLinks = [
-  { icon: "share", href: "#" },
-  { icon: "camera_alt", href: "#" },
+  { icon: "share", component: ShareOutlinedIcon, href: "#" },
+  { icon: "camera_alt", component: InstagramIcon, href: "#" },
 ];
 
 const defaultLegalLinks: FooterLink[] = [
@@ -65,12 +69,12 @@ export default function Footer({
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-8 w-8 bg-parchment/5 rounded-full flex items-center justify-center border border-travertine/30">
-                <span
-                  className="material-symbols-outlined text-parchment"
-                  style={{ fontSize: 16 }}
-                >
-                  diamond
-                </span>
+                <DiamondOutlinedIcon
+                  sx={{
+                    fontSize: 16,
+                    color: "var(--parchment)",
+                  }}
+                />
               </div>
               <span className="text-parchment text-base font-bold tracking-widest uppercase">
                 {brandName}
@@ -87,9 +91,7 @@ export default function Footer({
                   href={social.href}
                   aria-label={social.icon}
                 >
-                  <span className="material-symbols-outlined text-sm">
-                    {social.icon}
-                  </span>
+                  <social.component sx={{ fontSize: 16 }} />
                 </a>
               ))}
             </div>

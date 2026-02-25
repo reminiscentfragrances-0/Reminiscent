@@ -1,6 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import ProductCard, { Product } from "./ProductCard";
 import { useCart } from "../context/CartContext";
 
@@ -63,14 +65,14 @@ export default function ProductCarousel({
             className="h-12 w-12 rounded-full border border-travertine/30 flex items-center justify-center text-parchment hover:bg-parchment/5 transition-colors"
             aria-label="Scroll left"
           >
-            <span className="material-symbols-outlined">west</span>
+            <ArrowBackOutlinedIcon sx={{ fontSize: 20 }} />
           </button>
           <button
             onClick={() => scroll("right")}
             className="h-12 w-12 rounded-full border border-travertine/30 flex items-center justify-center text-parchment hover:bg-parchment/5 transition-colors"
             aria-label="Scroll right"
           >
-            <span className="material-symbols-outlined">east</span>
+            <ArrowForwardOutlinedIcon sx={{ fontSize: 20 }} />
           </button>
         </div>
       </div>

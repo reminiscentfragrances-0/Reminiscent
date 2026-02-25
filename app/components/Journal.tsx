@@ -36,6 +36,7 @@ const defaultPosts: JournalPost[] = [
 ];
 
 import Link from "next/link";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 export default function Journal({
   label = "The Journal",
@@ -94,9 +95,15 @@ export default function Journal({
           <span className="text-xs uppercase tracking-[0.4em] font-light">
             Explore the Journal
           </span>
-          <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
-            arrow_forward
-          </span>
+          <ArrowForwardOutlinedIcon
+            sx={{
+              fontSize: 18,
+              transition: "transform 0.2s",
+              ".group:hover &": {
+                transform: "translateX(4px)",
+              },
+            }}
+          />
         </Link>
       </div>
     </section>

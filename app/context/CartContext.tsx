@@ -8,6 +8,7 @@ import React, {
   useEffect,
 } from "react";
 import Link from "next/link";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 export type CartItem = {
   productId: string;
@@ -190,12 +191,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
               className="p-2 -m-2 rounded-full text-white/60 hover:text-white hover:bg-white/5 transition-colors"
               aria-label="Close cart"
             >
-              <span
-                className="material-symbols-outlined"
-                style={{ fontSize: 24 }}
-              >
-                close
-              </span>
+              <CloseOutlinedIcon sx={{ fontSize: 24 }} />
             </button>
           </div>
 
@@ -235,12 +231,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                       className="p-1 text-white/40 hover:text-white"
                       aria-label={`Remove ${item.name}`}
                     >
-                      <span
-                        className="material-symbols-outlined"
-                        style={{ fontSize: 18 }}
-                      >
-                        close
-                      </span>
+                      <CloseOutlinedIcon sx={{ fontSize: 18 }} />
                     </button>
                   </div>
                 ))

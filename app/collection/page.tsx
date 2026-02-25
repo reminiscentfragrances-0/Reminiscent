@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
 import { useCart } from "../context/CartContext";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 
 interface Product {
   id: string;
@@ -154,9 +155,7 @@ export default function CollectionPage() {
                     <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transition-opacity">
                       Add to Cart
                     </span>
-                    <span className="material-symbols-outlined text-2xl">
-                      add_shopping_cart
-                    </span>
+                    <AddShoppingCartOutlinedIcon sx={{ fontSize: 24 }} />
                   </button>
                 </div>
               </div>

@@ -1,8 +1,18 @@
+import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
+import Filter2OutlinedIcon from "@mui/icons-material/Filter2Outlined";
+import Filter3OutlinedIcon from "@mui/icons-material/Filter3Outlined";
+
 export interface ScentNote {
   step: number;
   title: string;
   description: string;
 }
+
+const filterIcons: Record<number, React.ElementType> = {
+  1: Filter1OutlinedIcon,
+  2: Filter2OutlinedIcon,
+  3: Filter3OutlinedIcon,
+};
 
 interface ScentProfileProps {
   label?: string;
@@ -81,21 +91,31 @@ export default function ScentProfile({
             {title}
           </h2>
           <div className="space-y-8">
-            {notes.map((note) => (
-              <div key={note.step} className="flex gap-6">
-                <div className="h-10 w-10 shrink-0 border border-travertine/30 rounded-full flex items-center justify-center">
-                  <span className="material-symbols-outlined text-parchment/50 text-sm">
-                    filter_{note.step}
-                  </span>
+            {notes.map((note) => {
+              const IconComponent = filterIcons[note.step];
+              return (
+                <div key={note.step} className="flex gap-6">
+                  <div className="h-10 w-10 shrink-0 border border-travertine/30 rounded-full flex items-center justify-center">
+                    {IconComponent && (
+                      <IconComponent
+                        sx={{
+                          fontSize: 16,
+                          color: "rgba(244, 241, 234, 0.5)",
+                        }}
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <h5 className="text-parchment font-bold mb-2 uppercase tracking-wide text-sm">
+                      {note.title}
+                    </h5>
+                    <p className="text-parchment/60 text-sm">
+                      {note.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h5 className="text-parchment font-bold mb-2 uppercase tracking-wide text-sm">
-                    {note.title}
-                  </h5>
-                  <p className="text-parchment/60 text-sm">{note.description}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

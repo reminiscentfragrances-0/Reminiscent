@@ -3,6 +3,24 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useCart } from "../../context/CartContext";
+import AirOutlinedIcon from "@mui/icons-material/AirOutlined";
+import LocalFloristOutlinedIcon from "@mui/icons-material/LocalFloristOutlined";
+import NatureOutlinedIcon from "@mui/icons-material/NatureOutlined";
+import OilBarrelOutlinedIcon from "@mui/icons-material/OilBarrelOutlined";
+import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
+import WcOutlinedIcon from "@mui/icons-material/WcOutlined";
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import StarIcon from "@mui/icons-material/Star";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  oil_barrel: OilBarrelOutlinedIcon,
+  schedule: ScheduleOutlinedIcon,
+  wc: WcOutlinedIcon,
+  wb_sunny: WbSunnyOutlinedIcon,
+  payments: PaymentsOutlinedIcon,
+};
 
 export type ProductDetailData = {
   id: string;
@@ -222,9 +240,9 @@ export default function ProductDetailClient({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 relative">
             <div className="flex flex-col items-center text-center space-y-6">
-              <span className="material-symbols-outlined text-primary text-4xl font-extralight">
-                air
-              </span>
+              <AirOutlinedIcon
+                sx={{ color: "var(--primary)", fontSize: 40, fontWeight: 200 }}
+              />
               <h4 className="text-sm uppercase tracking-[0.3em] font-semibold">
                 Top Notes
               </h4>
@@ -233,9 +251,9 @@ export default function ProductDetailClient({
               </p>
             </div>
             <div className="flex flex-col items-center text-center space-y-6 md:border-x border-white/5 px-8">
-              <span className="material-symbols-outlined text-primary text-4xl font-extralight">
-                local_florist
-              </span>
+              <LocalFloristOutlinedIcon
+                sx={{ color: "var(--primary)", fontSize: 40, fontWeight: 200 }}
+              />
               <h4 className="text-sm uppercase tracking-[0.3em] font-semibold">
                 Heart Notes
               </h4>
@@ -244,9 +262,9 @@ export default function ProductDetailClient({
               </p>
             </div>
             <div className="flex flex-col items-center text-center space-y-6">
-              <span className="material-symbols-outlined text-primary text-4xl font-extralight">
-                nature
-              </span>
+              <NatureOutlinedIcon
+                sx={{ color: "var(--primary)", fontSize: 40, fontWeight: 200 }}
+              />
               <h4 className="text-sm uppercase tracking-[0.3em] font-semibold">
                 Base Notes
               </h4>
@@ -261,19 +279,22 @@ export default function ProductDetailClient({
       {/* Why This Fragrance */}
       <section className="py-32 px-6 md:px-20 max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-          {FEATURES.map((item) => (
-            <div
-              key={item.label}
-              className="flex flex-col items-center justify-center p-8 border border-white/5 rounded-lg text-center space-y-3"
-            >
-              <span className="material-symbols-outlined text-primary">
-                {item.icon}
-              </span>
-              <span className="text-[10px] uppercase tracking-widest font-medium">
-                {item.label}
-              </span>
-            </div>
-          ))}
+          {FEATURES.map((item) => {
+            const IconComponent = ICON_MAP[item.icon];
+            return (
+              <div
+                key={item.label}
+                className="flex flex-col items-center justify-center p-8 border border-white/5 rounded-lg text-center space-y-3"
+              >
+                {IconComponent && (
+                  <IconComponent sx={{ color: "var(--primary)" }} />
+                )}
+                <span className="text-[10px] uppercase tracking-widest font-medium">
+                  {item.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -290,14 +311,17 @@ export default function ProductDetailClient({
                 className="p-10 border border-white/5 bg-background-dark/40 rounded-xl space-y-6"
               >
                 <div className="flex gap-1 text-primary">
-                  {Array.from({ length: 5 }).map((_, idx) => (
-                    <span
-                      key={idx}
-                      className={`material-symbols-outlined text-sm ${idx < (review.rating ?? 5) ? "fill-1" : "opacity-30"}`}
-                    >
-                      star
-                    </span>
-                  ))}
+                  {Array.from({ length: 5 }).map((_, idx) => {
+                    const isFilled = idx < (review.rating ?? 5);
+                    return isFilled ? (
+                      <StarIcon key={idx} sx={{ fontSize: 14 }} />
+                    ) : (
+                      <StarOutlineIcon
+                        key={idx}
+                        sx={{ fontSize: 14, opacity: 0.3 }}
+                      />
+                    );
+                  })}
                 </div>
                 <p className="text-slate-400 font-light leading-relaxed">
                   {review.quote}
@@ -319,20 +343,22 @@ export default function ProductDetailClient({
               <span className="text-[10px] uppercase tracking-widest text-slate-500 mr-2">
                 Rating
               </span>
-              {Array.from({ length: 5 }).map((_, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setReviewRating(idx + 1)}
-                  className={`material-symbols-outlined text-lg transition-all focus:outline-none ${
-                    idx < reviewRating
-                      ? "fill-1"
-                      : "opacity-30 hover:opacity-70"
-                  }`}
-                >
-                  star
-                </button>
-              ))}
+              {Array.from({ length: 5 }).map((_, idx) => {
+                const isFilled = idx < reviewRating;
+                const Icon = isFilled ? StarIcon : StarOutlineIcon;
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setReviewRating(idx + 1)}
+                    className={`transition-all focus:outline-none ${
+                      isFilled ? "" : "opacity-30 hover:opacity-70"
+                    }`}
+                  >
+                    <Icon sx={{ fontSize: 20 }} />
+                  </button>
+                );
+              })}
             </div>
             <input
               type="text"

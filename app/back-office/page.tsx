@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 type BackOfficeProduct = {
   id: string;
@@ -362,9 +365,14 @@ export default function BackOfficePage() {
                   onClick={() => setIsAddModalOpen(true)}
                   className="border-2 border-dashed border-travertine/10 rounded-xl flex flex-col items-center justify-center p-6 text-parchment/60 hover:border-travertine/30 hover:bg-white/5 transition-all group min-h-[220px]"
                 >
-                  <span className="material-symbols-outlined text-4xl mb-2 group-hover:scale-110 transition-transform">
-                    add_circle
-                  </span>
+                  <AddCircleOutlinedIcon
+                    sx={{
+                      fontSize: 40,
+                      mb: 1,
+                      transition: "transform 0.2s",
+                      ".group:hover &": { transform: "scale(1.1)" },
+                    }}
+                  />
                   <span className="text-sm font-medium">
                     Manifest New Essence
                   </span>
@@ -470,9 +478,7 @@ export default function BackOfficePage() {
                           </td>
                           <td className="px-6 py-6">
                             <button className="text-parchment/40 hover:text-parchment transition-colors">
-                              <span className="material-symbols-outlined text-lg">
-                                receipt_long
-                              </span>
+                              <ReceiptLongOutlinedIcon sx={{ fontSize: 20 }} />
                             </button>
                           </td>
                         </tr>
@@ -510,9 +516,7 @@ export default function BackOfficePage() {
                   className="text-parchment/60 hover:text-parchment transition-colors"
                   aria-label="Close"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    close
-                  </span>
+                  <CloseOutlinedIcon sx={{ fontSize: 24 }} />
                 </button>
               </div>
 

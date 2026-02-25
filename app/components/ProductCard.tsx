@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 
 export interface Product {
   id: string;
@@ -49,9 +50,15 @@ export default function ProductCard({
             onClick={() => onAddToCart?.(product)}
             aria-label={`Add ${product.name} to cart`}
           >
-            <span className="material-symbols-outlined text-parchment/40 group-hover:text-primary transition-colors">
-              add_shopping_cart
-            </span>
+            <AddShoppingCartOutlinedIcon
+              sx={{
+                color: "rgba(244, 241, 234, 0.4)",
+                ".group:hover &": {
+                  color: "var(--primary)",
+                },
+                transition: "color 0.2s",
+              }}
+            />
           </button>
         </div>
       </div>
