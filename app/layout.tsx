@@ -4,6 +4,7 @@ import "./globals.css";
 import { CartProvider } from "./context/CartContext";
 import { ApiProgressProvider } from "./components/ApiProgressProvider";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const manrope = Manrope({
   variable: "--font-display",
@@ -48,6 +49,7 @@ export default function RootLayout({
           <ApiProgressProvider>{children}</ApiProgressProvider>
         </CartProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
