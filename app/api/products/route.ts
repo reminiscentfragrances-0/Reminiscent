@@ -69,7 +69,7 @@ export async function POST(request: Request) {
         badge: badge ?? null,
       },
     });
-    revalidateTag("products");
+    revalidateTag("products", "page");
     return NextResponse.json({
       ...product,
       price: Number(product.price),
