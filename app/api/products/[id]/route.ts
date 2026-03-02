@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
 function serializeProduct(p: { price: unknown; [k: string]: unknown }) {
@@ -64,6 +65,7 @@ export async function PATCH(
       where: { id },
       data,
     });
+    revalidateTag("products");
     return NextResponse.json(serializeProduct(product));
   } catch (e) {
     console.error("PATCH /api/products/[id]", e);

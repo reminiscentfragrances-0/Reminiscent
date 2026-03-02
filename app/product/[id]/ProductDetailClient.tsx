@@ -13,6 +13,7 @@ import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import LazyImage from "@/app/components/LazyImage";
 
 const ICON_MAP: Record<string, React.ElementType> = {
   oil_barrel: OilBarrelOutlinedIcon,
@@ -85,7 +86,7 @@ export default function ProductDetailClient({
     fetch(`/api/products/${slug}/reviews`)
       .then((r) => r.json())
       .then((data) => Array.isArray(data) && setReviews(data))
-      .catch(() => {});
+      .catch(() => { });
   }, [product.slug, product.id]);
 
   const submitReview = async (e: React.FormEvent) => {
@@ -351,9 +352,8 @@ export default function ProductDetailClient({
                     key={idx}
                     type="button"
                     onClick={() => setReviewRating(idx + 1)}
-                    className={`transition-all focus:outline-none ${
-                      isFilled ? "" : "opacity-30 hover:opacity-70"
-                    }`}
+                    className={`transition-all focus:outline-none ${isFilled ? "" : "opacity-30 hover:opacity-70"
+                      }`}
                   >
                     <Icon sx={{ fontSize: 20 }} />
                   </button>
@@ -431,9 +431,10 @@ export default function ProductDetailClient({
               className="group cursor-pointer space-y-6 block"
             >
               <div className="aspect-[3/4] overflow-hidden rounded-lg bg-background-darker">
-                <img
+                <LazyImage
                   src={item.image}
                   alt={item.name}
+                  loading="lazy"
                   className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
               </div>

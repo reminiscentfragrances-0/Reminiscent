@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
 import { useCart } from "../context/CartContext";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import LazyImage from "../components/LazyImage";
 
 interface Product {
   id: string;
@@ -117,9 +118,10 @@ export default function CollectionPage() {
               <Link href={`/product/${product.slug}`} className="block">
                 <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-8">
                   <div className="absolute inset-0 bg-obsidian/40 group-hover:bg-transparent transition-colors duration-700 z-10" />
-                  <div
-                    className="w-full h-full bg-center bg-cover grayscale group-hover:grayscale-0 transform group-hover:scale-110 transition-all duration-1000"
-                    style={{ backgroundImage: `url("${product.heroImage}")` }}
+                  <LazyImage
+                    src={product.heroImage}
+                    alt={product.name}
+                    className="w-full h-full object-center object-cover grayscale group-hover:grayscale-0 transform group-hover:scale-110 transition-all duration-1000"
                   />
                   {product.category && (
                     <div className="absolute top-6 left-6 z-20">

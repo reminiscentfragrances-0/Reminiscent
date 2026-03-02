@@ -1,18 +1,16 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { getProducts } from "@/lib/db-products";
 
 export async function GET() {
   try {
-    const products = await prisma.product.findMany({
-      orderBy: { createdAt: "asc" },
+    const products = await getProducts();
+    return NextResponse.json(products, {
+      headers: {
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
     });
-    const serialized = products.map((p) => ({
-      ...p,
-      id: p.id,
-      price: Number(p.price),
-      slug: p.slug,
-    }));
-    return NextResponse.json(serialized);
   } catch (e) {
     console.error("GET /api/products", e);
     return NextResponse.json(
@@ -71,6 +69,7 @@ export async function POST(request: Request) {
         badge: badge ?? null,
       },
     });
+    revalidateTag("products");
     return NextResponse.json({
       ...product,
       price: Number(product.price),

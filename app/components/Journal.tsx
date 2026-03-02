@@ -15,6 +15,7 @@ interface JournalProps {
 
 import Link from "next/link";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import LazyImage from "./LazyImage";
 
 export default function Journal({
   label = "The Journal",
@@ -46,9 +47,10 @@ export default function Journal({
             }`}
           >
             <div className="aspect-video overflow-hidden rounded-xl">
-              <div
-                className="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
-                style={{ backgroundImage: `url("${post.image}")` }}
+              <LazyImage
+                src={post.image}
+                alt={post.title}
+                className="w-full h-full object-cover object-center grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
               />
             </div>
             <div className="flex flex-col gap-3">

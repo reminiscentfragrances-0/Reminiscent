@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface HeroProps {
   title?: string;
   titleAccent?: string;
@@ -17,10 +19,16 @@ export default function Hero({
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-linear-to-t from-obsidian via-obsidian/20 to-transparent z-10" />
         <div className="absolute inset-0 bg-linear-to-r from-obsidian/60 via-transparent to-transparent z-10" />
-        <div
-          className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url("${backgroundImage}")` }}
-        />
+        <div className="relative h-full w-full">
+          <Image
+            src={backgroundImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
       </div>
 
       {/* Content */}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import LazyImage from "./LazyImage";
 
 export interface Product {
   id: string;
@@ -26,9 +27,10 @@ export default function ProductCard({
         {/* Image Container */}
         <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-6">
           <div className="absolute inset-0 bg-obsidian/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-          <div
-            className="w-full h-full bg-center bg-cover transform group-hover:scale-110 transition-transform duration-700"
-            style={{ backgroundImage: `url("${product.image}")` }}
+          <LazyImage
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700"
           />
         </div>
       </Link>

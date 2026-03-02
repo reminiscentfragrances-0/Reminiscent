@@ -3,6 +3,7 @@ import { SideNav, Header, Footer } from "@/app/components";
 import { getJournalEntryBySlug } from "@/lib/db-journal";
 import Link from "next/link";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import LazyImage from "@/app/components/LazyImage";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -68,9 +69,11 @@ export default async function JournalPostPage({ params }: PageProps) {
         {entry.image && (
           <div className="relative aspect-[21/9] rounded-xl overflow-hidden mb-20">
             <div className="absolute inset-0 bg-obsidian/20" />
-            <div
-              className="w-full h-full bg-center bg-cover"
-              style={{ backgroundImage: `url("${entry.image}")` }}
+            <LazyImage
+              src={entry.image}
+              alt={entry.title}
+              loading="eager"
+              className="w-full h-full object-center object-cover"
             />
           </div>
         )}

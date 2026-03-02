@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import Link from "next/link";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import LazyImage from "../components/LazyImage";
 
 export type CartItem = {
   productId: string;
@@ -212,11 +213,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                     key={item.productId}
                     className="flex items-center gap-4 pb-6 border-b border-white/5 last:border-0"
                   >
-                    <div
-                      className="w-16 h-16 shrink-0 rounded bg-center bg-cover grayscale hover:grayscale-0 transition-all duration-500"
-                      style={{ backgroundImage: `url("${item.image}")` }}
-                      role="img"
-                      aria-hidden
+                    <LazyImage
+                      src={item.image}
+                      alt={item.name}
+                      className="w-16 h-16 shrink-0 rounded object-center object-cover grayscale hover:grayscale-0 transition-all duration-500"
                     />
                     <div className="flex-1 min-w-0">
                       <h3 className="text-white text-sm font-light font-serif">
