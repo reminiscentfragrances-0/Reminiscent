@@ -1,10 +1,10 @@
 "use client";
 
-import { useCart } from "../context/CartContext";
-import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
-import OpacityOutlinedIcon from "@mui/icons-material/OpacityOutlined";
+import { HomeOutlined } from "@mui/icons-material";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import OpacityOutlinedIcon from "@mui/icons-material/OpacityOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { useCart } from "../context/CartContext";
 
 export interface NavItem {
   icon: string;
@@ -19,13 +19,13 @@ interface SideNavProps {
 }
 
 const defaultNavItems: NavItem[] = [
-  { icon: "history", label: "Archive", href: "#" },
+  { icon: "home", label: "Home", href: "/" },
   { icon: "opacity", label: "Essences", href: "/collection" },
   { icon: "menu_book", label: "Journals", href: "/journal" },
 ];
 
 const iconMap: Record<string, React.ElementType> = {
-  history: HistoryOutlinedIcon,
+  home: HomeOutlined,
   opacity: OpacityOutlinedIcon,
   menu_book: MenuBookOutlinedIcon,
 };

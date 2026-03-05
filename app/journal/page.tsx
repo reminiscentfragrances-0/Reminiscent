@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+import LazyImage from "../components/LazyImage";
 
 interface JournalEntry {
   id: string;
@@ -132,11 +133,10 @@ export default function JournalPage() {
                     {entry.image && (
                       <div className="relative aspect-[21/9] rounded-xl overflow-hidden">
                         <div className="absolute inset-0 bg-obsidian/30 group-hover:bg-transparent transition-colors duration-700 z-10" />
-                        <div
-                          className="w-full h-full bg-center bg-cover grayscale-[30%] group-hover:grayscale-0 transform group-hover:scale-105 transition-all duration-1000"
-                          style={{
-                            backgroundImage: `url("${entry.image}")`,
-                          }}
+                        <LazyImage
+                          src={entry.image}
+                          alt={entry.title}
+                          className="w-full h-full object-center object-cover grayscale-[30%] group-hover:grayscale-0 transform group-hover:scale-105 transition-all duration-1000"
                         />
                       </div>
                     )}

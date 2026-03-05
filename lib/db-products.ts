@@ -1,23 +1,34 @@
 import { prisma } from "@/lib/prisma";
+import { unstable_cache } from "next/cache";
+
+const getProductsCached = unstable_cache(
+  async () => {
+    const list = await prisma.product.findMany({
+      orderBy: { createdAt: "asc" },
+    });
+    return list.map((p) => ({
+      ...p,
+      price: Number(p.price),
+    }));
+  },
+  ["products-list"],
+  {
+    // Never mark stale by time; only via revalidateTag("products")
+    revalidate: false,
+    tags: ["products"],
+  },
+);
 
 export async function getProducts() {
-  const list = await prisma.product.findMany({
-    orderBy: { createdAt: "asc" },
-  });
-  return list.map((p) => ({
-    ...p,
-    price: Number(p.price),
-  }));
+  return getProductsCached();
 }
 
 export async function getProductBySlugOrId(slugOrId: string) {
-  const product = await prisma.product.findFirst({
-    where: { OR: [{ slug: slugOrId }, { id: slugOrId }] },
-  });
+  const products = await getProducts();
+  const product = products.find((p) => p.slug === slugOrId || p.id === slugOrId);
   if (!product) return null;
   return {
     ...product,
     price: Number(product.price),
-    priceLabel: `$${Number(product.price).toFixed(2)}`,
   };
 }

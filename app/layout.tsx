@@ -9,14 +9,16 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const manrope = Manrope({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400"],
   style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {

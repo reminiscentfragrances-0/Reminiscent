@@ -1,6 +1,7 @@
 import Filter1OutlinedIcon from "@mui/icons-material/Filter1Outlined";
 import Filter2OutlinedIcon from "@mui/icons-material/Filter2Outlined";
 import Filter3OutlinedIcon from "@mui/icons-material/Filter3Outlined";
+import LazyImage from "./LazyImage";
 
 export interface ScentNote {
   step: number;
@@ -63,9 +64,10 @@ export default function ScentProfile({
         {/* Image Side */}
         <div className="relative">
           <div className="aspect-square rounded-2xl overflow-hidden glass p-4">
-            <div
-              className="w-full h-full bg-cover bg-center rounded-xl"
-              style={{ backgroundImage: `url("${image}")` }}
+            <LazyImage
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover object-center rounded-xl"
             />
           </div>
 

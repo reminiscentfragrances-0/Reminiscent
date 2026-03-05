@@ -12,14 +12,39 @@ export function ApiProgressProvider({
   useEffect(() => {
     const originalFetch = window.fetch;
 
-    // Intercept global fetch
-    window.fetch = async function (...args) {
-      setActiveRequests((prev) => prev + 1);
+    // Intercept global fetch — only show overlay for API calls, not image/asset fetches
+    window.fetch = async function (
+      input: RequestInfo | URL,
+      init?: RequestInit
+    ) {
+      const url =
+        typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.href
+            : input.url;
+      let isApiCall = url.startsWith("/api/");
+      if (!isApiCall && url.startsWith("http")) {
+        try {
+          isApiCall = new URL(url).pathname.startsWith("/api/");
+        } catch {
+          // ignore invalid URLs
+        }
+      }
+
+      if (isApiCall) {
+        setActiveRequests((prev) => prev + 1);
+      }
       try {
-        const response = await originalFetch.apply(this, args);
+        const response = await originalFetch.apply(this, [input, init] as [
+          RequestInfo | URL,
+          RequestInit?
+        ]);
         return response;
       } finally {
-        setActiveRequests((prev) => Math.max(0, prev - 1));
+        if (isApiCall) {
+          setActiveRequests((prev) => Math.max(0, prev - 1));
+        }
       }
     };
 

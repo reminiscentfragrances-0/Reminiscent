@@ -41,7 +41,7 @@ export default async function ProductDetailPage({
     tagline: item.tagline ?? "",
     description: item.description ?? "",
     price: item.price,
-    priceLabel: item.priceLabel ?? `Rs. ${item.price.toFixed(2)}`,
+    priceLabel: `Rs. ${item.price}`,
     heroImage: item.heroImage ?? "",
     concentration: item.concentration ?? "",
     longevity: item.longevity ?? "",

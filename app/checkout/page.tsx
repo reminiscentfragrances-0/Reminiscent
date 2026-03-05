@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
 import { useCart } from "../context/CartContext";
+import LazyImage from "../components/LazyImage";
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
@@ -214,11 +215,10 @@ export default function CheckoutPage() {
                           key={item.productId}
                           className="flex items-center gap-6 pb-8 border-b border-white/5 last:border-0 last:pb-0"
                         >
-                          <div
-                            className="w-20 h-20 shrink-0 bg-center bg-no-repeat bg-cover rounded grayscale hover:grayscale-0 transition-all duration-700"
-                            style={{ backgroundImage: `url("${item.image}")` }}
-                            role="img"
-                            aria-label={item.name}
+                          <LazyImage
+                            src={item.image}
+                            alt={item.name}
+                            className="w-20 h-20 shrink-0 rounded object-center object-cover grayscale hover:grayscale-0 transition-all duration-700"
                           />
                           <div className="flex-1 min-w-0">
                             <h3 className="text-white text-base font-light font-serif">
