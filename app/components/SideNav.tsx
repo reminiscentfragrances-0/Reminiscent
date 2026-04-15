@@ -2,7 +2,7 @@
 
 import { HomeOutlined } from "@mui/icons-material";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-import OpacityOutlinedIcon from "@mui/icons-material/OpacityOutlined";
+import SpaOutlinedIcon from "@mui/icons-material/SpaOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { useCart } from "../context/CartContext";
 
@@ -26,7 +26,7 @@ const defaultNavItems: NavItem[] = [
 
 const iconMap: Record<string, React.ElementType> = {
   home: HomeOutlined,
-  opacity: OpacityOutlinedIcon,
+  opacity: SpaOutlinedIcon,
   menu_book: MenuBookOutlinedIcon,
 };
 
@@ -75,6 +75,9 @@ export default function SideNav({ items = defaultNavItems }: SideNavProps) {
               className="text-parchment/60 group-hover:text-primary transition-colors cursor-pointer"
               sx={{ fontSize: 24, display: "block" }}
             />
+            <span className="absolute -top-1.5 -right-2 text-[9px] leading-none text-parchment/85 group-hover:text-primary transition-colors">
+              {count}
+            </span>
             <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-obsidian px-3 py-1 rounded text-xs text-parchment opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap lg:left-14 lg:bottom-auto lg:mb-0 lg:translate-x-0">
               Cart ({count})
             </span>
