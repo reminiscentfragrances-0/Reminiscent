@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import LazyImage from "./LazyImage";
+import { formatCurrency } from "@/lib/format-currency";
 
 export interface Product {
   id: string;
@@ -45,7 +46,7 @@ export default function ProductCard({
         <p className="text-parchment/60 text-sm mt-1">{product.description}</p>
         <div className="mt-4 flex items-center justify-between">
           <span className="text-parchment font-medium">
-            Rs. {product.price.toFixed(2)}
+            Rs. {formatCurrency(product.price)}
           </span>
           <button
             type="button"

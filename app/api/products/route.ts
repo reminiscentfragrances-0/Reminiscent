@@ -8,7 +8,7 @@ export async function GET() {
     const products = await getProducts();
     return NextResponse.json(products, {
       headers: {
-        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+        "Cache-Control": "no-store",
       },
     });
   } catch (e) {
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
         badge: badge ?? null,
       },
     });
-    revalidateTag("products", "page");
+    revalidateTag("products", "max");
     return NextResponse.json({
       ...product,
       price: Number(product.price),

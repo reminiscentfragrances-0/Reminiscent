@@ -5,6 +5,7 @@ import Link from "next/link";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { formatCurrency } from "@/lib/format-currency";
 
 type BackOfficeProduct = {
   id: string;
@@ -38,9 +39,11 @@ export default function BackOfficePage() {
   const [newProductCategory, setNewProductCategory] = useState("Parfum");
   const [newProductPrice, setNewProductPrice] = useState<number | "">("");
   const [newProductStock, setNewProductStock] = useState<number | "">("");
+  const [isRevalidatingProducts, setIsRevalidatingProducts] = useState(false);
+  const [revalidationMessage, setRevalidationMessage] = useState("");
 
   const fetchProducts = useCallback(async () => {
-    const res = await fetch("/api/products");
+    const res = await fetch("/api/products", { cache: "no-store" });
     if (res.ok) {
       const data = await res.json();
       setProducts(
@@ -174,6 +177,25 @@ export default function BackOfficePage() {
     }
   };
 
+  const handleRevalidateProducts = async () => {
+    setIsRevalidatingProducts(true);
+    setRevalidationMessage("");
+    try {
+      const res = await fetch("/api/revalidate-products", { method: "POST" });
+      const data: { message?: string; error?: string } = await res.json();
+      if (!res.ok) {
+        setRevalidationMessage(data.error ?? "Failed to refresh cache");
+        return;
+      }
+      await fetchProducts();
+      setRevalidationMessage(data.message ?? "Products cache refreshed");
+    } catch {
+      setRevalidationMessage("Failed to refresh cache");
+    } finally {
+      setIsRevalidatingProducts(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-obsidian text-parchment font-extralight selection:bg-primary/30 font-display">
       {/* Sidebar / Header */}
@@ -230,7 +252,23 @@ export default function BackOfficePage() {
             </p>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col items-start md:items-end gap-2">
+            <button
+              type="button"
+              onClick={handleRevalidateProducts}
+              disabled={isRevalidatingProducts}
+              className="px-4 py-2 rounded-md text-[10px] uppercase tracking-[0.2em] border border-travertine/30 text-parchment/80 hover:bg-white/5 hover:border-travertine/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isRevalidatingProducts
+                ? "Refreshing Cache..."
+                : "Refresh Products Cache"}
+            </button>
+            {revalidationMessage && (
+              <p className="text-[10px] tracking-wide text-parchment/60">
+                {revalidationMessage}
+              </p>
+            )}
+            <div className="flex gap-4">
             {activeTab === "inventory" ? (
               <>
                 <div className="bg-background-darker/40 border border-travertine/10 px-6 py-3 rounded-lg backdrop-blur-sm">
@@ -270,6 +308,7 @@ export default function BackOfficePage() {
                 </div>
               </>
             )}
+            </div>
           </div>
         </div>
 
@@ -432,7 +471,7 @@ export default function BackOfficePage() {
                             {order.items}
                           </td>
                           <td className="px-6 py-6 font-serif">
-                            Rs. {order.total}
+                            Rs. {formatCurrency(order.total)}
                           </td>
                           <td className="px-6 py-6 border-0">
                             <select

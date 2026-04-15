@@ -65,7 +65,7 @@ export async function PATCH(
       where: { id },
       data,
     });
-    revalidateTag("products", "page");
+    revalidateTag("products", "max");
     return NextResponse.json(serializeProduct(product));
   } catch (e) {
     console.error("PATCH /api/products/[id]", e);

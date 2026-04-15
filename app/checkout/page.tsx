@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SideNav, Header, Footer } from "../components";
 import { useCart } from "../context/CartContext";
 import LazyImage from "../components/LazyImage";
+import { formatCurrency } from "@/lib/format-currency";
 
 export default function CheckoutPage() {
   const { items, subtotal, clearCart } = useCart();
@@ -225,11 +226,11 @@ export default function CheckoutPage() {
                               {item.name}
                             </h3>
                             <p className="text-white/40 text-xs tracking-wider">
-                              {item.quantity} × Rs. {item.price.toFixed(2)}
+                              {item.quantity} × Rs. {formatCurrency(item.price)}
                             </p>
                           </div>
                           <span className="text-gold font-light text-sm shrink-0">
-                            Rs. {(item.price * item.quantity).toFixed(2)}
+                            Rs. {formatCurrency(item.price * item.quantity)}
                           </span>
                         </div>
                       ))}
@@ -237,7 +238,7 @@ export default function CheckoutPage() {
                     <div className="mt-10 flex flex-col gap-4">
                       <div className="flex justify-between text-xs tracking-widest uppercase text-white/40">
                         <span>Subtotal</span>
-                        <span>Rs. {subtotal.toFixed(2)}</span>
+                        <span>Rs. {formatCurrency(subtotal)}</span>
                       </div>
                       <div className="flex justify-between text-xs tracking-widest uppercase text-white/40">
                         <span>Messenger Fee</span>
@@ -247,7 +248,7 @@ export default function CheckoutPage() {
                       <div className="flex justify-between text-lg text-white">
                         <span className="font-serif">Total Exchange</span>
                         <span className="text-gold font-serif font-bold">
-                          Rs. {subtotal.toFixed(2)}
+                          Rs. {formatCurrency(subtotal)}
                         </span>
                       </div>
                       <p className="text-[10px] text-white/30 text-center mt-6 italic">

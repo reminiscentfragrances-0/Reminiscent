@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { SideNav, Header, Footer } from "../../components";
 import ProductDetailClient from "./ProductDetailClient";
 import { getProductBySlugOrId, getProducts } from "@/lib/db-products";
+import { formatCurrency } from "@/lib/format-currency";
 
 export default async function ProductDetailPage({
   params,
@@ -41,7 +42,7 @@ export default async function ProductDetailPage({
     tagline: item.tagline ?? "",
     description: item.description ?? "",
     price: item.price,
-    priceLabel: `Rs. ${item.price}`,
+    priceLabel: `Rs. ${formatCurrency(item.price)}`,
     heroImage: item.heroImage ?? "",
     concentration: item.concentration ?? "",
     longevity: item.longevity ?? "",

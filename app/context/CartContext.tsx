@@ -10,6 +10,7 @@ import React, {
 import Link from "next/link";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import LazyImage from "../components/LazyImage";
+import { formatCurrency } from "@/lib/format-currency";
 
 export type CartItem = {
   productId: string;
@@ -223,11 +224,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                         {item.name}
                       </h3>
                       <p className="text-white/40 text-xs tracking-wider">
-                        {item.quantity} × Rs. {item.price.toFixed(2)}
+                        {item.quantity} × Rs. {formatCurrency(item.price)}
                       </p>
                     </div>
                     <span className="text-primary font-light text-sm shrink-0">
-                      Rs. {(item.price * item.quantity).toFixed(2)}
+                      Rs. {formatCurrency(item.price * item.quantity)}
                     </span>
                     <button
                       type="button"
@@ -245,13 +246,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             <div className="mt-8 pt-6 border-t border-white/10 shrink-0">
               <div className="flex justify-between text-xs tracking-widest uppercase text-white/40 mb-2">
                 <span>Subtotal</span>
-                <span>Rs. {subtotal.toFixed(2)}</span>
+                <span>Rs. {formatCurrency(subtotal)}</span>
               </div>
               <div className="h-px bg-primary/20 my-3" />
               <div className="flex justify-between text-base text-white mb-6">
                 <span className="font-serif">Total</span>
                 <span className="text-primary font-serif font-bold">
-                  Rs. {subtotal.toFixed(2)}
+                  Rs. {formatCurrency(subtotal)}
                 </span>
               </div>
               <Link
